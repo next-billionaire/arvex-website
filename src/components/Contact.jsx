@@ -1,82 +1,128 @@
 // src/components/Contact.jsx
 
-import { FaWhatsapp, FaInstagram, FaEnvelope, FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
+import {
+  FaWhatsapp,
+  FaInstagram,
+  FaEnvelope,
+  FaPhoneAlt,
+  FaMapMarkerAlt
+} from "react-icons/fa";
 
-export default function Contact(){
-  return(
-    <section id="contact" className="py-24 bg-slate-100">
+export default function Contact() {
+  return (
+    <section id="contact" className="py-24 bg-gray-50">
       <div className="max-w-6xl mx-auto px-6">
 
-        {/* Heading */}
-        <h2 className="text-3xl font-bold text-center mb-4">
-          Contact Orvion Technologies
-        </h2>
+        {/* ===== Heading ===== */}
+        <div className="text-center mb-16">
+          <p className="text-sm font-semibold text-gray-500 uppercase mb-3">
+            ✦ Contact
+          </p>
 
-        <p className="text-center text-gray-600 mb-14 max-w-xl mx-auto">
-          Have questions or want to discuss your project? Reach out through any platform below.
-          We respond quickly and help you get started.
-        </p>
+          <h2 className="text-3xl md:text-4xl font-bold">
+            Let’s discuss your project
+          </h2>
 
-        {/* Cards */}
-        <div className="grid md:grid-cols-2 gap-8">
+          <p className="text-gray-600 mt-4 max-w-xl mx-auto">
+            Whether you have an idea, need guidance, or want to start immediately —
+            we’re here to help you take the next step.
+          </p>
+        </div>
 
-          {/* LEFT INFO */}
-          <div className="bg-white p-8 rounded-2xl shadow space-y-5">
+        {/* ===== Grid ===== */}
+        <div className="grid md:grid-cols-2 gap-10">
 
-            <div className="flex items-center gap-3">
-              <FaPhoneAlt className="text-primary"/>
-              <span>+91 8520003931</span>
+          {/* LEFT — CONTACT CHANNELS */}
+          <div className="bg-white p-8 rounded-2xl shadow-sm border space-y-6">
+
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-indigo-50 rounded-xl">
+                <FaPhoneAlt className="text-indigo-600" />
+              </div>
+              <div>
+                <p className="text-sm text-gray-500">Call us</p>
+                <p className="font-medium">+91 8520003931</p>
+              </div>
             </div>
 
-            <div className="flex items-center gap-3">
-              <FaEnvelope className="text-primary"/>
-              <span>nextbillionaire056@gmail.com</span>
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-indigo-50 rounded-xl">
+                <FaEnvelope className="text-indigo-600" />
+              </div>
+              <div>
+                <p className="text-sm text-gray-500">Email</p>
+                <p className="font-medium">nextbillionaire056@gmail.com</p>
+              </div>
             </div>
 
-            <div className="flex items-center gap-3">
-              <FaWhatsapp className="text-primary"/>
-              <a href="https://wa.me/91XXXXXXXXXX" target="_blank" className="hover:text-primary">
-                Chat on WhatsApp
-              </a>
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-indigo-50 rounded-xl">
+                <FaWhatsapp className="text-indigo-600" />
+              </div>
+              <div>
+                <p className="text-sm text-gray-500">WhatsApp</p>
+                <a
+                  href="https://wa.me/918520003931"
+                  target="_blank"
+                  className="font-medium hover:text-indigo-600"
+                >
+                  Start chat instantly
+                </a>
+              </div>
             </div>
 
-            <div className="flex items-center gap-3">
-              <FaInstagram className="text-primary"/>
-              <a href="#" target="_blank" className="hover:text-primary">
-                Instagram Page
-              </a>
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-indigo-50 rounded-xl">
+                <FaInstagram className="text-indigo-600" />
+              </div>
+              <div>
+                <p className="text-sm text-gray-500">Instagram</p>
+                <a href="#" target="_blank" className="font-medium hover:text-indigo-600">
+                  View our updates
+                </a>
+              </div>
             </div>
 
-            <div className="flex items-start gap-3">
-              <FaMapMarkerAlt className="text-primary mt-1"/>
-              <span>Vijayawada, Andhra Pradesh, India</span>
+            <div className="flex items-start gap-4">
+              <div className="p-3 bg-indigo-50 rounded-xl">
+                <FaMapMarkerAlt className="text-indigo-600" />
+              </div>
+              <div>
+                <p className="text-sm text-gray-500">Location</p>
+                <p className="font-medium">Vijayawada, Andhra Pradesh, India</p>
+              </div>
             </div>
 
           </div>
 
-          {/* RIGHT COMPANY CARD */}
-          <div className="bg-gradient-to-br from-indigo-500 to-purple-500 text-white p-8 rounded-2xl shadow">
+          {/* RIGHT — CTA BLOCK */}
+          <div className="relative bg-gradient-to-br from-indigo-600 to-purple-600 text-white p-10 rounded-2xl shadow-xl overflow-hidden">
 
-            <h3 className="text-xl font-semibold mb-3">
-              Work with Orvion
+            {/* Glow */}
+            <div className="absolute -top-20 -right-20 w-56 h-56 bg-white/20 blur-3xl rounded-full"></div>
+
+            <h3 className="text-2xl font-semibold mb-3 relative">
+              Start your digital journey today
             </h3>
 
-            <p className="text-sm opacity-90">
-              We partner with businesses to create websites that generate visibility,
-              build trust and convert visitors into clients. Whether you need a business website,
-              e-commerce platform or AI-powered automation — we’re ready to help.
+            <p className="text-sm opacity-90 relative">
+              We partner with businesses to build websites and AI-powered solutions
+              that attract customers, build credibility, and drive growth.
             </p>
 
-            <p className="mt-5 text-sm opacity-80">
-              Prefer quick conversation? Message us directly on WhatsApp.
-            </p>
+            <ul className="mt-6 space-y-2 text-sm opacity-95 relative">
+              <li>✔️ Free consultation</li>
+              <li>✔️ Simple process</li>
+              <li>✔️ Fast delivery</li>
+              <li>✔️ Ongoing support</li>
+            </ul>
 
             <a
               href="https://wa.me/918520003931"
               target="_blank"
-              className="inline-block mt-5 bg-white text-primary px-5 py-2 rounded-lg font-medium"
+              className="inline-block mt-8 bg-white text-indigo-600 px-6 py-3 rounded-xl font-medium hover:scale-[1.02] transition relative"
             >
-              Start Chat
+              Message on WhatsApp →
             </a>
 
           </div>
@@ -85,5 +131,5 @@ export default function Contact(){
 
       </div>
     </section>
-  )
+  );
 }

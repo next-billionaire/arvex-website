@@ -1,55 +1,66 @@
-// src/components/Portfolio.jsx
-export default function Portfolio(){
-
-  const projects=[
+export default function Portfolio() {
+  const projects = [
     {
-      title:"Cafe Website",
-      desc:"Local cafe digital presence with menu & reservations",
-      img:"https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb"
+      title: "Cafe Website",
+      desc: "Digital presence with menu showcase and reservation system",
+      img: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb"
     },
     {
-      title:"Real Estate Landing",
-      desc:"Lead generation page for property listings",
-      img:"https://images.unsplash.com/photo-1560518883-ce09059eeffa"
+      title: "Real Estate Landing Page",
+      desc: "Lead generation experience for property enquiries",
+      img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa"
     },
     {
-      title:"E-commerce Store",
-      desc:"Modern online store with product catalog",
-      img:"https://images.unsplash.com/photo-1556742031-c6961e8560b0"
+      title: "E-commerce Store",
+      desc: "Online shopping experience with product catalog and checkout",
+      img: "https://images.unsplash.com/photo-1556742031-c6961e8560b0"
     }
   ];
 
-  return(
-    <section id="portfolio" className="py-24 bg-slate-100">
+  return (
+    <section id="portfolio" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6">
 
-        <h2 className="text-3xl font-bold text-center mb-14">
-          Some of our work
-        </h2>
+        {/* Intro */}
+        <div className="text-center mb-16">
+          <p className="text-sm font-semibold text-gray-500 uppercase mb-3">
+            ✦ Portfolio
+          </p>
 
+          <h2 className="text-3xl md:text-4xl font-bold">
+            Selected projects and experiences
+          </h2>
+
+          <p className="text-gray-600 mt-4 max-w-2xl mx-auto">
+            A glimpse into the digital experiences we have designed to help businesses connect with customers.
+          </p>
+        </div>
+
+        {/* Grid */}
         <div className="grid md:grid-cols-3 gap-8">
+          {projects.map((p, i) => (
+            <div
+              key={i}
+              className="group relative rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition duration-300"
+            >
+              {/* Image */}
+              <img
+                src={p.img}
+                alt={p.title}
+                className="w-full h-64 object-cover group-hover:scale-110 transition duration-500"
+              />
 
-          {projects.map((p,i)=>(
-            <div key={i} className="bg-white rounded-xl overflow-hidden shadow-lg hover:scale-105 transition">
-
-              <div className="h-48 overflow-hidden">
-                <img src={p.img} className="w-full h-full object-cover"/>
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex flex-col justify-end p-6 text-white">
+                <h3 className="font-semibold text-lg">{p.title}</h3>
+                <p className="text-sm opacity-90">{p.desc}</p>
+                <span className="text-sm mt-2">View details →</span>
               </div>
-
-              <div className="p-5">
-                <h3 className="font-semibold">{p.title}</h3>
-                <p className="text-gray-600 text-sm mt-2">{p.desc}</p>
-
-                <button className="text-primary mt-3 text-sm font-medium">
-                  View demo →
-                </button>
-              </div>
-
             </div>
           ))}
-
         </div>
+
       </div>
     </section>
-  )
+  );
 }

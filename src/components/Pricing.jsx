@@ -1,80 +1,139 @@
 // src/components/Pricing.jsx
-export default function Pricing(){
+export default function Pricing() {
 
-  const plans=[
+  const plans = [
     {
-      name:"Starter",
-      price:"₹6999",
-      features:[
-        "5 page website",
-        "Mobile responsive",
-        "Contact form",
-        "Basic SEO",
-        "Free domain (limited)"
+      icon: "🏪",
+      name: "Local Business Website",
+      price: "₹6,999",
+      desc: "Ideal for cafes, salons, gyms, clinics, and local service providers",
+      features: [
+        "5-page professional website",
+        "Mobile responsive design",
+        "Contact & enquiry form",
+        "Google Maps integration",
+        "Basic SEO setup"
       ],
-      highlight:false
+      highlight: false
     },
     {
-      name:"Business",
-      price:"₹12,999",
-      features:[
-        "10 page website",
-        "Advanced UI design",
-        "Speed optimization",
+      icon: "🏢",
+      name: "Business Growth Website",
+      price: "₹11,999",
+      desc: "Perfect for service businesses aiming to generate leads and scale",
+      features: [
+        "8–10 page website",
+        "Modern UI & branding",
         "WhatsApp integration",
-        "Lead capture setup"
+        "Lead capture system",
+        "Conversion-focused layout"
       ],
-      highlight:true
+      highlight: true,
+      tag: "Most Chosen"
     },
     {
-      name:"E-commerce",
-      price:"₹19,999",
-      features:[
-        "Full online store",
-        "Payment gateway",
+      icon: "🛒",
+      name: "E-commerce Store",
+      price: "₹18,999",
+      desc: "For businesses selling products online with payments and orders",
+      features: [
+        "Complete online store",
+        "Payment gateway setup",
         "Product management",
-        "AI chatbot optional",
+        "Mobile shopping experience",
         "Order dashboard"
       ],
-      highlight:false
+      highlight: false
+    },
+    {
+      icon: "🤖",
+      name: "AI Customer Support System",
+      price: "₹24,999+",
+      desc: "Automate customer conversations and lead capture using AI",
+      features: [
+        "AI chat assistant setup",
+        "Lead capture automation",
+        "Website integration",
+        "Conversation workflows",
+        "Performance monitoring"
+      ],
+      highlight: false,
+      premium: true
     }
   ];
 
-  return(
-    <section id="pricing" className="py-24">
+  return (
+    <section id="pricing" className="py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-6">
 
-        <h2 className="text-3xl font-bold text-center mb-14">
-          Simple transparent pricing
-        </h2>
+        {/* Intro */}
+        <div className="text-center mb-16">
+          <p className="text-sm font-semibold text-gray-500 uppercase mb-3">
+            ✦ Pricing
+          </p>
 
-        <div className="grid md:grid-cols-3 gap-8">
+          <h2 className="text-3xl md:text-4xl font-bold">
+            Plans tailored for different business needs
+          </h2>
 
-          {plans.map((p,i)=>(
+          <p className="text-gray-600 mt-4 max-w-2xl mx-auto">
+            Whether you run a local business, growing company, or online store,
+            we have solutions designed to support your digital journey.
+          </p>
+        </div>
+
+        {/* Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+          {plans.map((p, i) => (
             <div
               key={i}
-              className={`relative bg-white rounded-2xl shadow-lg p-8 flex flex-col 
-              ${p.highlight ? "scale-105 border-2 border-primary" : ""}`}
+              className={`relative flex flex-col rounded-2xl p-8 transition duration-300
+              ${p.highlight
+                  ? "bg-white shadow-2xl scale-105 border border-indigo-500"
+                  : "bg-white shadow-sm hover:shadow-xl border"}
+              ${p.premium ? "bg-gradient-to-br from-indigo-600 to-purple-600 text-white border-0" : ""}`}
             >
 
-              {p.highlight && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white px-4 py-1 rounded-full text-sm">
-                  Most Popular
+              {/* Tag */}
+              {p.tag && (
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-indigo-600 text-white px-4 py-1 rounded-full text-xs">
+                  {p.tag}
                 </span>
               )}
 
-              <h3 className="text-xl font-semibold">{p.name}</h3>
+              {/* Icon */}
+              <div className="text-3xl mb-2">{p.icon}</div>
 
-              <p className="text-3xl font-bold mt-3">{p.price}</p>
+              {/* Title */}
+              <h3 className="text-lg font-semibold">{p.name}</h3>
 
-              <ul className="mt-6 space-y-2 text-gray-600 flex-1">
-                {p.features.map((f,idx)=>(
-                  <li key={idx}>✓ {f}</li>
+              {/* Description */}
+              <p className={`text-sm mt-1 ${p.premium ? "text-indigo-100" : "text-gray-500"}`}>
+                {p.desc}
+              </p>
+
+              {/* Price */}
+              <p className="text-3xl font-bold mt-4">{p.price}</p>
+
+              {/* Features */}
+              <ul className={`mt-6 space-y-2 text-sm flex-1 ${p.premium ? "text-indigo-100" : "text-gray-600"}`}>
+                {p.features.map((f, idx) => (
+                  <li key={idx} className="flex">
+                    <span className="mr-2">✔️</span>
+                    {f}
+                  </li>
                 ))}
               </ul>
 
-              <button className="mt-6 bg-primary text-white py-3 rounded-xl hover:scale-105 transition">
-                Get Started
+              {/* CTA */}
+              <button
+                className={`mt-6 py-3 rounded-xl font-medium transition
+                ${p.premium
+                    ? "bg-white text-indigo-600 hover:scale-[1.02]"
+                    : "bg-indigo-600 text-white hover:scale-[1.02]"}`}
+              >
+                Choose Plan →
               </button>
 
             </div>
@@ -82,11 +141,11 @@ export default function Pricing(){
 
         </div>
 
-        <p className="text-center text-gray-500 mt-8">
-          Need custom features? Contact us for tailored pricing.
+        <p className="text-center text-gray-500 mt-10">
+          Custom requirements? We can create a plan tailored specifically for your business.
         </p>
 
       </div>
     </section>
-  )
+  );
 }
