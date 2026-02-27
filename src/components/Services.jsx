@@ -1,105 +1,77 @@
-export default function Services() {
-  const services = [
+export default function Solutions() {
+
+  const solutions = [
     {
       icon: "🤖",
       title: "AI Customer Support Assistant",
-      description:
-        "A smart AI assistant that talks with your customers, answers questions, collects enquiries, and helps your business respond instantly — even when you are busy or offline.",
-      benefits: [
-        "Replies to customers 24/7",
-        "Captures leads automatically",
-        "Works on your website & chat",
-        "Saves your time and effort"
-      ]
+      desc: "Automate customer conversations and capture leads even when offline.",
+      features: ["24/7 replies", "Lead capture", "Website integration", "Analytics"]
     },
     {
       icon: "🌐",
       title: "Business Website",
-      description:
-        "A professional website that shows your services, builds trust, and helps customers easily contact and find your business online.",
-      benefits: [
-        "Mobile-friendly modern design",
-        "Show your services clearly",
-        "Contact & enquiry form",
-        "Helps customers discover you online"
-      ]
+      desc: "Professional websites that build trust and generate enquiries.",
+      features: ["Modern design", "Contact forms", "SEO ready", "Mobile-first"]
     },
     {
       icon: "🛒",
-      title: "Online Store (E-commerce)",
-      description:
-        "Sell your products online with a simple and secure shopping website where customers can browse, order, and pay easily.",
-      benefits: [
-        "Accept online payments",
-        "Display products professionally",
-        "Smooth mobile shopping",
-        "Easy order management"
-      ]
+      title: "E-commerce Store",
+      desc: "Sell products online with secure payments and smooth shopping.",
+      features: ["Payments setup", "Product management", "Mobile UX", "Orders dashboard"]
     },
     {
       icon: "🚀",
-      title: "Landing Pages for Ads",
-      description:
-        "Special pages designed to convert visitors from your ads into enquiries, bookings, or sales.",
-      benefits: [
-        "Perfect for Google & social ads",
-        "Clear call-to-action sections",
-        "Lead collection forms",
-        "Improves campaign results"
-      ]
+      title: "Landing Pages",
+      desc: "High-converting pages designed for ads and campaigns.",
+      features: ["Conversion layout", "CTAs", "Lead forms", "Ad optimized"]
     }
   ];
 
   return (
-    <section id="services" className="py-24 bg-gray-50">
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="solutions" className="py-24 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-6">
 
-        {/* ===== Intro ===== */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <p className="text-sm font-semibold text-gray-500 uppercase mb-3">
-            ✦ Our Services
-          </p>
-
+        {/* Intro */}
+        <div className="text-center max-w-2xl mx-auto mb-12">
+          <p className="text-sm font-semibold text-gray-500 uppercase mb-3">✦ Solutions</p>
           <h2 className="text-3xl md:text-4xl font-bold">
-            Everything your business needs to grow online
+            Digital solutions designed for business growth
           </h2>
-
-          <p className="text-gray-600 mt-4">
-            We create simple and effective digital solutions that help businesses
-            attract customers, answer enquiries faster, and increase sales.
-          </p>
         </div>
 
-        {/* ===== Grid ===== */}
-        <div className="grid md:grid-cols-2 gap-10">
-          {services.map((service, index) => (
+        {/* Swipe container */}
+        <div className="flex lg:grid lg:grid-cols-4 gap-6 overflow-x-auto snap-x snap-mandatory pb-4 lg:overflow-visible">
+
+          {solutions.map((s, i) => (
             <div
-              key={index}
-              className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition duration-300 border"
+              key={i}
+              className="min-w-[260px] lg:min-w-0 snap-start bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition border flex flex-col"
             >
-              {/* Title */}
-              <h3 className="text-xl font-semibold mb-3 flex items-center gap-2">
-                <span>{service.icon}</span>
-                {service.title}
-              </h3>
+              <div className="text-3xl mb-3">{s.icon}</div>
 
-              {/* Description */}
-              <p className="text-gray-600 mb-5">
-                {service.description}
-              </p>
+              <h3 className="text-lg font-semibold mb-2">{s.title}</h3>
 
-              {/* Benefits */}
-              <ul className="space-y-2">
-                {service.benefits.map((item, i) => (
-                  <li key={i} className="flex text-gray-700 text-sm">
-                    <span className="mr-2">✅</span>
-                    {item}
+              <p className="text-gray-600 text-sm">{s.desc}</p>
+
+              <ul className="mt-5 space-y-2 text-sm text-gray-700 flex-1">
+                {s.features.map((f, idx) => (
+                  <li key={idx} className="flex">
+                    <span className="mr-2">✔️</span>
+                    {f}
                   </li>
                 ))}
               </ul>
 
+              <button
+                onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                className="mt-6 py-3 rounded-xl font-medium bg-indigo-600 text-white hover:scale-[1.02] transition"
+              >
+                Get Quote →
+              </button>
+
             </div>
           ))}
+
         </div>
 
       </div>

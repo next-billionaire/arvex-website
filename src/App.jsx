@@ -4,7 +4,6 @@ import Services from "./components/Services";
 import Portfolio from "./components/Portfolio";
 import WhyChoose from "./components/WhyChoose";
 import Process from "./components/Process";
-import Pricing from "./components/Pricing";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import WhatsAppFloat from "./components/WhatsAppFloat";
@@ -18,7 +17,6 @@ export default function App() {
       <Portfolio />
       <WhyChoose />
       <Process />
-      <Pricing />
       <Contact />
       <Footer />
       <WhatsAppFloat />

@@ -43,7 +43,7 @@ export default function Portfolio() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
           {projects.map((p, i) => (
             <div
               key={i}
@@ -54,7 +54,7 @@ export default function Portfolio() {
               <img
                 src={p.img}
                 alt={p.title}
-                className="w-full h-64 object-cover group-hover:scale-110 transition duration-500"
+                className="w-full h-40 md:h-64 -cover group-hover:scale-110 transition duration-500"
               />
 
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex flex-col justify-end p-6 text-white">
