@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aura Brew — Ultra Premium Cafe</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Poppins,sans-serif;background:#0b0b0b;color:#fff;overflow-x:hidden;scroll-behavior:smooth}
+h1,h2,h3{font-family:'Playfair Display',serif}
+
+/* CURSOR */
+.cursor{position:fixed;width:18px;height:18px;border-radius:50%;background:#c8a97e;pointer-events:none;transform:translate(-50%,-50%);z-index:9999;mix-blend-mode:difference}
+
+/* NAV */
+nav{position:fixed;width:100%;padding:20px 8%;display:flex;justify-content:space-between;align-items:center;z-index:999;background:rgba(0,0,0,0.5);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.08)}
+.logo{font-size:28px;letter-spacing:2px;font-weight:700}
+nav ul{display:flex;gap:35px;list-style:none}
+nav a{text-decoration:none;color:#fff;opacity:.8;transition:.3s}
+nav a:hover{opacity:1}
+
+/* HERO */
+.hero{height:100vh;position:relative;overflow:hidden}
+.hero video{position:absolute;width:100%;height:100%;object-fit:cover}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.5),#0b0b0b)}
+.hero-content{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;z-index:2}
+
+/* HERO DECOR IMAGE */
+.hero-decor{
+position:absolute;
+right:8%;
+bottom:10%;
+width:320px;
+border-radius:20px;
+overflow:hidden;
+box-shadow:0 20px 60px rgba(0,0,0,.6);
+animation:float 6s ease-in-out infinite;
+z-index:2
+}
+.hero-decor img{width:100%;height:100%;object-fit:cover}
+
+@keyframes float{
+0%{transform:translateY(0)}
+50%{transform:translateY(-18px)}
+100%{transform:translateY(0)}
+}
+.hero h1{font-size:72px;margin-bottom:20px}
+.hero p{opacity:.8;margin-bottom:30px}
+
+.btn{padding:15px 38px;border:none;border-radius:50px;background:linear-gradient(45deg,#c8a97e,#ffce8a);color:#000;font-weight:600;cursor:pointer;transition:.4s}
+.btn:hover{transform:scale(1.07)}
+
+section{padding:120px 8%}
+.reveal{opacity:0;transform:translateY(60px);transition:1s}
+.reveal.active{opacity:1;transform:none}
+
+/* ABOUT */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.about img{width:100%;border-radius:20px}
+.about h2{font-size:44px;margin-bottom:20px}
+.about p{opacity:.8;line-height:1.8}
+
+/* STORY */
+.story{background:#111;text-align:center}
+.story p{max-width:800px;margin:auto;opacity:.8;line-height:1.8}
+
+/* MENU */
+.menu{background:#111}
+.menu h2{text-align:center;font-size:46px;margin-bottom:30px}
+.filter{text-align:center;margin-bottom:40px}
+.filter button{margin:5px;padding:10px 20px;border:none;border-radius:30px;background:#1a1a1a;color:#fff;cursor:pointer}
+.filter button.active{background:#c8a97e;color:#000}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:30px}
+.menu-card{background:#1a1a1a;border-radius:18px;overflow:hidden;transition:.4s}
+.menu-card:hover{transform:translateY(-10px)}
+.menu-card img{width:100%;height:220px;object-fit:cover}
+.menu-info{padding:20px}
+
+/* TEAM */
+.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:30px;text-align:center}
+.team-card img{width:100%;height:260px;object-fit:cover;border-radius:15px;margin-bottom:10px}
+
+/* COUNTER */
+.counter{background:#0e0e0e;text-align:center}
+.counter-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
+.count{font-size:46px;color:#c8a97e}
+
+/* GALLERY */
+.gallery-grid{columns:3 250px;gap:15px}
+.gallery-grid img{width:100%;margin-bottom:15px;border-radius:12px;transition:.4s}
+.gallery-grid img:hover{transform:scale(1.04)}
+
+/* BLOG */
+.blog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px}
+.blog-card{background:#151515;border-radius:15px;overflow:hidden}
+.blog-card img{width:100%;height:180px;object-fit:cover}
+.blog-card div{padding:15px}
+
+/* RESERVATION */
+.reservation{background:url('https://images.unsplash.com/photo-1509042239860-f550ce710b93') center/cover fixed;text-align:center}
+.reservation-overlay{background:rgba(0,0,0,.7);padding:100px 20px;border-radius:20px}
+
+/* CONTACT */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.contact input,.contact textarea{padding:14px;border:none;border-radius:10px;background:#1a1a1a;color:#fff}
+.contact form{display:flex;flex-direction:column;gap:15px}
+
+footer{text-align:center;padding:40px;background:#000}
+.float{position:fixed;bottom:25px;right:25px;padding:18px 28px;border-radius:50px;background:linear-gradient(45deg,#c8a97e,#ffce8a);color:#000;font-weight:600;cursor:pointer}
+
+/* MOBILE RESPONSIVE */
+@media(max-width:900px){
+.about,.contact{grid-template-columns:1fr}
+.hero h1{font-size:44px}
+.hero-decor{display:none}
+nav ul{display:none;position:absolute;top:70px;right:20px;background:#111;padding:20px;border-radius:12px;flex-direction:column;gap:20px}
+nav ul.active{display:flex}
+.menu-grid{grid-template-columns:1fr 1fr}
+.gallery-grid{columns:2 150px}
+}
+
+@media(max-width:500px){
+.hero h1{font-size:32px}
+.hero p{font-size:14px}
+.menu-grid{grid-template-columns:1fr}
+section{padding:80px 6%}
+.logo{font-size:22px}
+.gallery-grid{columns:1 100%}
+}
+
+</style>
+</head>
+<body>
+
+<div class="cursor"></div>
+
+<nav>
+<div class="logo">Aura Brew</div>
+<ul>
+<li><a href="#">Home</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#menu">Menu</a></li>
+<li><a href="#team">Team</a></li>
+<li><a href="#blog">Blog</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+</nav>
+
+<section class="hero">
+<video autoplay muted loop src="https://cdn.coverr.co/videos/coverr-coffee-machine-5176/1080p.mp4"></video>
+<div class="hero-overlay"></div>
+<div class="hero-content">
+<h1>Beyond Coffee</h1>
+<p>An immersive luxury cafe experience</p>
+<button class="btn">Reserve Now</button>
+</div>
+<div class="hero-decor"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93"></div>
+</section>
+
+<section id="about" class="about reveal">
+<img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24">
+<div>
+<h2>Where Design Meets Taste</h2>
+<p>Aura Brew is a premium speciality cafe offering globally sourced beans, signature desserts, artisan sandwiches, and curated ambience. Located in the heart of the city, we serve creators, professionals, and coffee lovers seeking more than caffeine.</p>
+</div>
+</section>
+
+<section class="story reveal">
+<h2>Our Story</h2>
+<p>Founded with a vision to build a social living room, Aura Brew combines design psychology, sensory coffee experiences, and hospitality innovation. The cafe hosts events, book clubs, creator meetups, and live acoustic nights.</p>
+</section>
+
+<section id="menu" class="menu reveal">
+<h2>Curated Menu</h2>
+<div class="filter">
+<button class="active" onclick="filterSelection('all')">All</button>
+<button onclick="filterSelection('coffee')">Coffee</button>
+<button onclick="filterSelection('dessert')">Dessert</button>
+<button onclick="filterSelection('food')">Food</button>
+</div>
+<div class="menu-grid">
+<div class="menu-card coffee"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085"><div class="menu-info"><h3>Royal Espresso</h3></div></div>
+<div class="menu-card coffee"><img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb"><div class="menu-info"><h3>Cappuccino</h3></div></div>
+<div class="menu-card dessert"><img src="https://images.unsplash.com/photo-1551024506-0bccd828d307"><div class="menu-info"><h3>Chocolate Cake</h3></div></div>
+<div class="menu-card food"><img src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0"><div class="menu-info"><h3>Grilled Sandwich</h3></div></div>
+</div>
+</section>
+
+<section id="team" class="reveal">
+<h2 style="text-align:center;margin-bottom:40px">Meet Our Baristas</h2>
+<div class="team-grid">
+<div class="team-card"><img src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39"><h3>Alex</h3><p>Head Barista</p></div>
+<div class="team-card"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2"><h3>Sophia</h3><p>Pastry Chef</p></div>
+<div class="team-card"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e"><h3>Daniel</h3><p>Cafe Manager</p></div>
+</div>
+</section>
+
+<section class="counter reveal">
+<div class="counter-grid">
+<div><div class="count" data-target="1200">0</div><p>Happy Guests</p></div>
+<div><div class="count" data-target="15">0</div><p>Signature Coffees</p></div>
+<div><div class="count" data-target="8">0</div><p>Awards</p></div>
+</div>
+</section>
+
+<section id="gallery" class="reveal">
+<h2 style="text-align:center;margin-bottom:40px">Ambience</h2>
+<div class="gallery-grid">
+<img src="https://images.unsplash.com/photo-1559925393-8be0ec4767c8">
+<img src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0">
+<img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814">
+<img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31">
+</div>
+</section>
+
+<section id="blog" class="reveal">
+<h2 style="text-align:center;margin-bottom:40px">Latest Stories</h2>
+<div class="blog-grid">
+<div class="blog-card"><img src="https://images.unsplash.com/photo-1498804103079-a6351b050096"><div><h3>How We Source Beans</h3></div></div>
+<div class="blog-card"><img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31"><div><h3>Designing Cafe Spaces</h3></div></div>
+<div class="blog-card"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93"><div><h3>Latte Art Guide</h3></div></div>
+</div>
+</section>
+
+<section class="reservation reveal">
+<div class="reservation-overlay">
+<h2>Reserve Your Experience</h2>
+<p>Private events, date nights, creator meetings</p>
+<button class="btn">Book Table</button>
+</div>
+</section>
+
+<section id="contact" class="contact reveal">
+<div>
+<h2>Visit Aura Brew</h2>
+<p>Open Daily · 9AM — 11PM<br>Premium Street, City Center<br>Phone: +91 9065 043000</p>
+</div>
+<form>
+<input placeholder="Name">
+<input placeholder="Email">
+<textarea rows="4" placeholder="Message"></textarea>
+<button class="btn">Send</button>
+</form>
+</section>
+
+<footer>© Aura Brew 2026</footer>
+<div class="float">Order</div>
+
+<script>
+const cursor=document.querySelector('.cursor')
+document.addEventListener('mousemove',e=>{cursor.style.top=e.clientY+'px';cursor.style.left=e.clientX+'px'})
+const reveals=document.querySelectorAll('.reveal')
+window.addEventListener('scroll',()=>{reveals.forEach(el=>{const top=el.getBoundingClientRect().top;if(top<window.innerHeight-100)el.classList.add('active')})})
+function filterSelection(c){let cards=document.querySelectorAll('.menu-card');cards.forEach(card=>{if(c==='all'||card.classList.contains(c))card.style.display='block';else card.style.display='none'})}
+const counters=document.querySelectorAll('.count');counters.forEach(counter=>{const update=()=>{const target=+counter.getAttribute('data-target');const c=+counter.innerText;const inc=target/100;if(c<target){counter.innerText=Math.ceil(c+inc);setTimeout(update,20)}else counter.innerText=target};update()})
+</script>
+</body>
+</html>

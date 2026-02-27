@@ -1,5 +1,3 @@
-// src/components/Contact.jsx
-
 import {
   FaWhatsapp,
   FaInstagram,
@@ -35,6 +33,7 @@ export default function Contact() {
           {/* LEFT — CONTACT CHANNELS */}
           <div className="bg-white p-8 rounded-2xl shadow-sm border space-y-6">
 
+            {/* Phone */}
             <div className="flex items-center gap-4">
               <div className="p-3 bg-indigo-50 rounded-xl">
                 <FaPhoneAlt className="text-indigo-600" />
@@ -45,16 +44,18 @@ export default function Contact() {
               </div>
             </div>
 
+            {/* Email */}
             <div className="flex items-center gap-4">
               <div className="p-3 bg-indigo-50 rounded-xl">
                 <FaEnvelope className="text-indigo-600" />
               </div>
               <div>
                 <p className="text-sm text-gray-500">Email</p>
-                <p className="font-medium">nextbillionaire056@gmail.com</p>
+                <p className="font-medium">hello.arvextech@gmail.com</p>
               </div>
             </div>
 
+            {/* WhatsApp */}
             <div className="flex items-center gap-4">
               <div className="p-3 bg-indigo-50 rounded-xl">
                 <FaWhatsapp className="text-indigo-600" />
@@ -64,6 +65,7 @@ export default function Contact() {
                 <a
                   href="https://wa.me/918520003931"
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="font-medium hover:text-indigo-600"
                 >
                   Start chat instantly
@@ -71,18 +73,25 @@ export default function Contact() {
               </div>
             </div>
 
+            {/* Instagram */}
             <div className="flex items-center gap-4">
               <div className="p-3 bg-indigo-50 rounded-xl">
                 <FaInstagram className="text-indigo-600" />
               </div>
               <div>
                 <p className="text-sm text-gray-500">Instagram</p>
-                <a href="#" target="_blank" className="font-medium hover:text-indigo-600">
-                  View our updates
+                <a
+                  href="https://instagram.com/arvextech_"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium hover:text-indigo-600"
+                >
+                  Follow us
                 </a>
               </div>
             </div>
 
+            {/* Location */}
             <div className="flex items-start gap-4">
               <div className="p-3 bg-indigo-50 rounded-xl">
                 <FaMapMarkerAlt className="text-indigo-600" />
@@ -120,6 +129,7 @@ export default function Contact() {
             <a
               href="https://wa.me/918520003931"
               target="_blank"
+              rel="noopener noreferrer"
               className="inline-block mt-8 bg-white text-indigo-600 px-6 py-3 rounded-xl font-medium hover:scale-[1.02] transition relative"
             >
               Message on WhatsApp →

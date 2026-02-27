@@ -1,7 +1,10 @@
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
+import { useState } from "react";
 
 export default function Hero() {
+
+  const [status, setStatus] = useState(null);
 
   const handleAudit = (e) => {
     e.preventDefault();
@@ -10,7 +13,7 @@ export default function Hero() {
       name: e.target.name.value,
       business: e.target.business.value,
       phone: e.target.phone.value,
-      email: "not_provided"
+      email: "Lead from website"
     };
 
     emailjs.send(
@@ -19,10 +22,10 @@ export default function Hero() {
       data,
       "seN_ZeFks9wEmjqVH"
     ).then(() => {
-      alert("✅ Audit request sent successfully!");
+      setStatus("success");
       e.target.reset();
     }).catch(() => {
-      alert("❌ Something went wrong. Please try again.");
+      setStatus("error");
     });
   };
 
@@ -47,7 +50,7 @@ export default function Hero() {
 
           {/* Brand label */}
           <p className="text-sm font-semibold text-gray-500 uppercase mb-3">
-            ✦ Orvion Technologies
+            ✦ Arvex Technologies
           </p>
 
           {/* Hook headline */}
@@ -112,6 +115,19 @@ export default function Hero() {
               >
                 Get Free Audit →
               </button>
+
+              {/* ===== STATUS MESSAGE ===== */}
+              {status === "success" && (
+                <p className="text-green-600 text-sm mt-2">
+                  ✅ Request sent successfully!
+                </p>
+              )}
+
+              {status === "error" && (
+                <p className="text-red-600 text-sm mt-2">
+                  ❌ Something went wrong. Try again.
+                </p>
+              )}
 
             </form>
 
