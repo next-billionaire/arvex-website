@@ -11,7 +11,6 @@ export default function Contact() {
     <section id="contact" className="py-24 bg-gray-50">
       <div className="max-w-6xl mx-auto px-6">
 
-        {/* ===== Heading ===== */}
         <div className="text-center mb-16">
           <p className="text-sm font-semibold text-gray-500 uppercase mb-3">
             ✦ Contact
@@ -27,74 +26,48 @@ export default function Contact() {
           </p>
         </div>
 
-        {/* ===== Grid ===== */}
         <div className="grid md:grid-cols-2 gap-10">
 
-          {/* LEFT — CONTACT CHANNELS */}
-          <div className="bg-white p-8 rounded-2xl shadow-sm border space-y-6">
+          <div className="bg-white p-8 rounded-2xl border space-y-6 transition-all duration-500 ease-premium hover:shadow-2xl">
 
-            {/* Phone */}
-            <div className="flex items-center gap-4">
+            <a href="tel:+918520003931" className="flex items-center gap-4 group">
               <div className="p-3 bg-indigo-50 rounded-xl">
-                <FaPhoneAlt className="text-indigo-600" />
+                <FaPhoneAlt className="text-primary" />
               </div>
               <div>
                 <p className="text-sm text-gray-500">Call us</p>
-                <p className="font-medium">+91 8520003931</p>
+                <p className="font-medium group-hover:text-primary">+91 8520003931</p>
               </div>
-            </div>
+            </a>
 
-            {/* Email */}
-            <div className="flex items-center gap-4">
+            <a href="mailto:hello.arvextech@gmail.com" className="flex items-center gap-4 group">
               <div className="p-3 bg-indigo-50 rounded-xl">
-                <FaEnvelope className="text-indigo-600" />
+                <FaEnvelope className="text-primary" />
               </div>
               <div>
                 <p className="text-sm text-gray-500">Email</p>
-                <p className="font-medium">hello.arvextech@gmail.com</p>
+                <p className="font-medium group-hover:text-primary">hello.arvextech@gmail.com</p>
               </div>
-            </div>
+            </a>
 
-            {/* WhatsApp */}
-            <div className="flex items-center gap-4">
+            <a
+              href="https://wa.me/918520003931"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-4 group"
+            >
               <div className="p-3 bg-indigo-50 rounded-xl">
-                <FaWhatsapp className="text-indigo-600" />
+                <FaWhatsapp className="text-primary" />
               </div>
               <div>
                 <p className="text-sm text-gray-500">WhatsApp</p>
-                <a
-                  href="https://wa.me/918520003931"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-medium hover:text-indigo-600"
-                >
-                  Start chat instantly
-                </a>
+                <p className="font-medium group-hover:text-primary">Start chat instantly</p>
               </div>
-            </div>
+            </a>
 
-            {/* Instagram */}
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-indigo-50 rounded-xl">
-                <FaInstagram className="text-indigo-600" />
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Instagram</p>
-                <a
-                  href="https://instagram.com/arvextech_"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-medium hover:text-indigo-600"
-                >
-                  Follow us
-                </a>
-              </div>
-            </div>
-
-            {/* Location */}
             <div className="flex items-start gap-4">
               <div className="p-3 bg-indigo-50 rounded-xl">
-                <FaMapMarkerAlt className="text-indigo-600" />
+                <FaMapMarkerAlt className="text-primary" />
               </div>
               <div>
                 <p className="text-sm text-gray-500">Location</p>
@@ -104,22 +77,18 @@ export default function Contact() {
 
           </div>
 
-          {/* RIGHT — CTA BLOCK */}
-          <div className="relative bg-gradient-to-br from-indigo-600 to-purple-600 text-white p-10 rounded-2xl shadow-xl overflow-hidden">
+          <div className="relative bg-gradient-to-br from-primary to-accent text-white p-10 rounded-2xl shadow-xl overflow-hidden">
 
-            {/* Glow */}
-            <div className="absolute -top-20 -right-20 w-56 h-56 bg-white/20 blur-3xl rounded-full"></div>
-
-            <h3 className="text-2xl font-semibold mb-3 relative">
+            <h3 className="text-2xl font-semibold mb-3">
               Start your digital journey today
             </h3>
 
-            <p className="text-sm opacity-90 relative">
+            <p className="text-sm opacity-90">
               We partner with businesses to build websites and AI-powered solutions
               that attract customers, build credibility, and drive growth.
             </p>
 
-            <ul className="mt-6 space-y-2 text-sm opacity-95 relative">
+            <ul className="mt-6 space-y-2 text-sm opacity-95">
               <li>✔️ Free consultation</li>
               <li>✔️ Simple process</li>
               <li>✔️ Fast delivery</li>
@@ -130,7 +99,7 @@ export default function Contact() {
               href="https://wa.me/918520003931"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block mt-8 bg-white text-indigo-600 px-6 py-3 rounded-xl font-medium hover:scale-[1.02] transition relative"
+              className="inline-block mt-8 bg-white text-primary px-6 py-3 rounded-xl font-medium transition-all duration-300 ease-premium hover:scale-105 hover:-translate-y-1 hover:shadow-2xl active:scale-95"
             >
               Message on WhatsApp →
             </a>

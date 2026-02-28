@@ -26,30 +26,26 @@ export default function Portfolio() {
   };
 
   return (
-    <section id="portfolio" className="py-16 bg-white">
+    <section id="portfolio" className="py-20 bg-white">
       <div className="max-w-6xl mx-auto px-6">
 
-        {/* Intro */}
         <div className="text-center mb-10">
           <p className="text-sm font-semibold text-gray-500 uppercase mb-2">
             ✦ Portfolio
           </p>
-
-          <h2 className="text-2xl md:text-3xl font-bold">
+          <h2 className="text-3xl font-bold">
             Selected digital experiences
           </h2>
         </div>
 
-        {/* Cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
           {projects.map((p, i) => (
             <div
               key={i}
-              className="bg-white rounded-2xl border shadow-sm hover:shadow-lg transition overflow-hidden flex flex-col"
+              className="bg-white rounded-2xl border overflow-hidden flex flex-col transition-all duration-500 ease-premium hover:-translate-y-2 hover:scale-[1.02] hover:shadow-2xl"
             >
 
-              {/* Image */}
               <div
                 onClick={() => openDemo(p.link)}
                 className="cursor-pointer overflow-hidden"
@@ -57,11 +53,10 @@ export default function Portfolio() {
                 <img
                   src={p.img}
                   alt={p.title}
-                  className="w-full h-44 object-cover hover:scale-105 transition duration-500"
+                  className="w-full h-44 object-cover transition-transform duration-700 ease-smooth hover:scale-110"
                 />
               </div>
 
-              {/* Content */}
               <div className="p-4 flex flex-col flex-1">
 
                 <h3 className="font-semibold text-sm mb-1">
@@ -74,7 +69,7 @@ export default function Portfolio() {
 
                 <button
                   onClick={() => openDemo(p.link)}
-                  className="text-indigo-600 text-sm mt-3 font-medium hover:underline text-left"
+                  className="text-primary text-sm mt-3 font-medium text-left transition-all duration-300 ease-premium hover:translate-x-1"
                 >
                   View demo →
                 </button>

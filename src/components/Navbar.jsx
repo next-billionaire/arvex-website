@@ -5,7 +5,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  const links = ["Home", "Solutions", "Portfolio", "Process", "Testimonials", "Contact"];
+  const links = ["Home", "services", "Portfolio", "Process", "Contact"];
 
   // Scroll effect
   useEffect(() => {

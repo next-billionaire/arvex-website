@@ -1,4 +1,4 @@
-export default function Solutions() {
+export default function Services() {
 
   const solutions = [
     {
@@ -28,10 +28,9 @@ export default function Solutions() {
   ];
 
   return (
-    <section id="solutions" className="py-24 bg-gray-50">
+    <section id="services" className="py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-6">
 
-        {/* Intro */}
         <div className="text-center max-w-2xl mx-auto mb-12">
           <p className="text-sm font-semibold text-gray-500 uppercase mb-3">✦ Solutions</p>
           <h2 className="text-3xl md:text-4xl font-bold">
@@ -39,14 +38,14 @@ export default function Solutions() {
           </h2>
         </div>
 
-        {/* Swipe container */}
         <div className="flex lg:grid lg:grid-cols-4 gap-6 overflow-x-auto snap-x snap-mandatory pb-4 lg:overflow-visible">
 
           {solutions.map((s, i) => (
             <div
               key={i}
-              className="min-w-[260px] lg:min-w-0 snap-start bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition border flex flex-col"
+              className="min-w-[260px] lg:min-w-0 snap-start bg-white p-8 rounded-2xl border flex flex-col transition-all duration-500 ease-premium hover:-translate-y-2 hover:scale-[1.02] hover:shadow-2xl"
             >
+
               <div className="text-3xl mb-3">{s.icon}</div>
 
               <h3 className="text-lg font-semibold mb-2">{s.title}</h3>
@@ -64,7 +63,7 @@ export default function Solutions() {
 
               <button
                 onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                className="mt-6 py-3 rounded-xl font-medium bg-indigo-600 text-white hover:scale-[1.02] transition"
+                className="mt-6 py-3 rounded-xl font-medium bg-primary text-white transition-all duration-300 ease-premium hover:scale-105 hover:-translate-y-1 hover:shadow-xl active:scale-95"
               >
                 Get Quote →
               </button>
