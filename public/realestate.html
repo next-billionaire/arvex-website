@@ -3,188 +3,1129 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PrimeEstate — Premium Real Estate Agency</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
+<title>PrimeEstate — Curators of Exceptional Residences</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,400;0,9..144,700;1,9..144,200;1,9..144,400&family=Syne:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Poppins,sans-serif;background:#f5f7fa;color:#222}
-h1,h2,h3{font-family:'Playfair Display',serif}
+:root {
+  --ivory:   #f2ede4;
+  --bone:    #e8e0d0;
+  --parch:   #d6cab8;
+  --burg:    #5c1a1a;
+  --burg2:   #7a2020;
+  --charcoal:#1e1a16;
+  --warm-gray:#8a8075;
+  --line:    rgba(92,26,26,0.12);
+  --gold:    #b07d3a;
+  --gold-lt: #d4a85a;
+  --white:   #faf8f4;
+}
 
-/* NAV */
-nav{position:fixed;width:100%;background:white;padding:18px 6%;display:flex;justify-content:space-between;align-items:center;z-index:999;box-shadow:0 4px 20px rgba(0,0,0,.06)}
-.logo{font-size:26px;font-weight:700;color:#1e3a8a}
-nav ul{display:flex;gap:30px;list-style:none}
-nav a{text-decoration:none;color:#333;font-weight:500}
-.menu-toggle{display:none;font-size:28px}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
 
-/* HERO */
-.hero{height:95vh;background:url('https://images.unsplash.com/photo-1560184897-ae75f418493e') center/cover;display:flex;align-items:center;padding:0 6%;position:relative}
-.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,.75),rgba(0,0,0,.1))}
-.hero-content{position:relative;color:white;max-width:600px}
-.hero h1{font-size:60px;margin-bottom:20px}
-.hero p{opacity:.9;margin-bottom:30px}
-.btn{padding:14px 34px;border:none;border-radius:40px;background:#1e3a8a;color:white;font-weight:600;cursor:pointer}
+body {
+  font-family:'Syne', sans-serif;
+  background: var(--ivory);
+  color: var(--charcoal);
+  overflow-x:hidden;
+  cursor:none;
+}
 
-/* TRUST */
-.trust{display:flex;justify-content:center;gap:40px;background:white;padding:25px;margin-top:-40px;box-shadow:0 10px 40px rgba(0,0,0,.08);border-radius:20px;flex-wrap:wrap}
+/* ── GRAIN ── */
+body::before {
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:0.025; pointer-events:none; z-index:99999;
+}
 
-/* SEARCH */
-.search{padding:40px 6%}
-.search-box{background:white;padding:25px;border-radius:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;box-shadow:0 10px 40px rgba(0,0,0,.08)}
-.search-box input,.search-box select{padding:12px;border-radius:10px;border:1px solid #ddd}
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--ivory)}
+::-webkit-scrollbar-thumb{background:var(--burg)}
 
-section{padding:90px 6%}
+/* ── CURSOR ── */
+#cdot {
+  position:fixed;width:10px;height:10px;
+  background:var(--burg);border-radius:50%;
+  pointer-events:none;z-index:99998;
+  transform:translate(-50%,-50%);
+  transition:width .25s,height .25s,background .3s;
+  mix-blend-mode:multiply;
+}
+#cring {
+  position:fixed;width:42px;height:42px;
+  border:1.5px solid var(--burg);border-radius:50%;
+  pointer-events:none;z-index:99997;
+  transform:translate(-50%,-50%);
+  transition:width .4s,height .4s,opacity .3s;
+  opacity:0.4;
+}
+#cdot.h{width:6px;height:6px;background:var(--gold)}
+#cring.h{width:72px;height:72px;opacity:0.18}
 
-/* ABOUT */
-.about{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
-.about img{width:100%;border-radius:20px}
+/* ── PRELOADER ── */
+#pre {
+  position:fixed;inset:0;background:var(--burg);
+  z-index:999999;display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:0;
+  transition:clip-path 1s cubic-bezier(.77,0,.175,1) .3s;
+  clip-path:inset(0 0 0 0);
+}
+#pre.out { clip-path:inset(0 0 100% 0); }
+.pre-inner { text-align:center; }
+.pre-word {
+  display:block;
+  font-family:'Fraunces',serif;font-style:italic;
+  font-size:clamp(52px,8vw,96px);font-weight:200;
+  color:var(--ivory);letter-spacing:-1px;line-height:1;
+  opacity:0; animation:preWord .8s ease forwards;
+}
+.pre-word:nth-child(2){animation-delay:.2s;color:var(--gold-lt)}
+.pre-word:nth-child(3){animation-delay:.4s}
+.pre-line-wrap{width:0;height:1px;background:rgba(242,237,228,.25);margin:32px auto 0;animation:preLineGrow 1.8s .3s ease forwards}
+@keyframes preWord{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes preLineGrow{to{width:200px}}
 
-/* PROPERTIES */
-.properties{background:#eef2ff}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px}
-.card{background:white;border-radius:18px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.08);transition:.3s;position:relative}
-.card:hover{transform:translateY(-8px)}
-.badge{position:absolute;top:15px;left:15px;background:#1e3a8a;color:white;padding:6px 12px;border-radius:20px;font-size:12px}
-.card img{width:100%;height:200px;object-fit:cover}
-.card div{padding:18px}
-.price{color:#1e3a8a;font-weight:600;margin-top:6px}
+/* ── GRID OVERLAY ── */
+.grid-lines {
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr;
+  padding:0 4%;
+}
+.grid-line {
+  border-left:1px solid var(--line);
+  height:100%;
+}
+.grid-line:last-child{border-right:1px solid var(--line)}
 
-/* SERVICES */
-.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:25px;text-align:center}
-.service{background:white;padding:30px;border-radius:15px;box-shadow:0 6px 20px rgba(0,0,0,.06)}
+/* ── NAV ── */
+nav {
+  position:fixed;top:0;width:100%;z-index:1000;
+  padding:0 6%;height:80px;
+  display:flex;justify-content:space-between;align-items:center;
+  transition:background .5s,box-shadow .5s;
+  border-bottom:1px solid transparent;
+}
+nav.stuck {
+  background:rgba(242,237,228,.96);
+  backdrop-filter:blur(20px);
+  border-bottom-color:var(--line);
+  box-shadow:0 2px 40px rgba(92,26,26,.06);
+}
+.n-logo {
+  font-family:'Fraunces',serif;font-style:italic;
+  font-size:22px;font-weight:400;color:var(--burg);
+  letter-spacing:.5px;text-decoration:none;
+  position:relative;
+}
+.n-logo span { font-style:normal;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;color:var(--charcoal);vertical-align:middle;margin-left:4px;text-transform:uppercase; }
+.n-links {display:flex;gap:44px;list-style:none}
+.n-links a {
+  text-decoration:none;color:var(--warm-gray);
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:400;
+  transition:color .3s;position:relative;
+}
+.n-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--burg);transition:width .35s}
+.n-links a:hover{color:var(--burg)}
+.n-links a:hover::after{width:100%}
+.n-btn {
+  padding:0 28px;height:40px;
+  background:var(--burg);color:var(--ivory);
+  border:none;cursor:none;font-family:'Syne',sans-serif;
+  font-size:10px;letter-spacing:2.5px;text-transform:uppercase;font-weight:500;
+  position:relative;overflow:hidden;transition:transform .3s;
+}
+.n-btn::before{content:'';position:absolute;inset:0;background:var(--charcoal);transform:translateX(-101%);transition:transform .45s cubic-bezier(.77,0,.175,1)}
+.n-btn:hover::before{transform:translateX(0)}
+.n-btn span{position:relative;z-index:1}
+.n-btn:hover{transform:translateY(-1px)}
 
-/* CTA */
-.cta{background:#1e3a8a;color:white;text-align:center;border-radius:20px;padding:60px}
+/* ── HERO ── */
+.hero {
+  min-height:100vh;
+  display:grid;grid-template-columns:1fr 1fr;
+  position:relative;padding-top:80px;overflow:hidden;
+}
 
-/* CONTACT */
-.contact{display:grid;grid-template-columns:1fr 1fr;gap:40px}
-.contact input,.contact textarea{padding:14px;border-radius:10px;border:1px solid #ddd}
-.contact form{display:flex;flex-direction:column;gap:15px}
+/* Left panel — text */
+.hero-left {
+  background:var(--burg);
+  padding:80px 8% 80px 6%;
+  display:flex;flex-direction:column;justify-content:space-between;
+  position:relative;overflow:hidden;
+  clip-path:inset(0 0 0 0);
+}
+.hero-left::before {
+  content:'';position:absolute;
+  right:-60px;top:50%;transform:translateY(-50%);
+  width:320px;height:320px;
+  border:1px solid rgba(242,237,228,.08);border-radius:50%;
+}
+.hero-left::after {
+  content:'';position:absolute;
+  right:-120px;top:50%;transform:translateY(-50%);
+  width:500px;height:500px;
+  border:1px solid rgba(242,237,228,.04);border-radius:50%;
+}
+.hero-deco-num {
+  font-family:'Fraunces',serif;
+  font-size:clamp(180px,18vw,280px);
+  font-weight:200;color:rgba(242,237,228,.05);
+  position:absolute;bottom:-40px;right:-20px;
+  line-height:1;pointer-events:none;user-select:none;
+  opacity:0;animation:fuR 1s 2.5s ease forwards;
+}
+.hero-eye {
+  font-size:10px;letter-spacing:4px;text-transform:uppercase;
+  color:rgba(242,237,228,.45);
+  display:flex;align-items:center;gap:14px;
+  opacity:0;animation:fuU .9s 2.2s ease forwards;
+}
+.hero-eye-dash{width:30px;height:1px;background:var(--gold-lt)}
 
-footer{text-align:center;padding:40px;background:#111;color:white}
+.hero-h {
+  font-family:'Fraunces',serif;
+  font-size:clamp(60px,7.5vw,110px);
+  font-weight:200;line-height:.95;letter-spacing:-2px;
+  color:var(--ivory);
+  opacity:0;animation:fuU 1s 2.4s ease forwards;
+  position:relative;z-index:1;
+}
+.hero-h em{font-style:italic;color:var(--gold-lt)}
+
+.hero-left-foot{
+  display:flex;flex-direction:column;gap:28px;
+  opacity:0;animation:fuU .9s 2.7s ease forwards;
+  position:relative;z-index:1;
+}
+.hero-sub{font-size:14px;font-weight:400;color:rgba(242,237,228,.55);line-height:1.9;max-width:380px}
+.hero-btns{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.btn-burg {
+  padding:16px 44px;background:var(--ivory);
+  color:var(--burg);border:none;cursor:none;
+  font-family:'Syne',sans-serif;font-size:10px;
+  letter-spacing:2.5px;text-transform:uppercase;font-weight:700;
+  position:relative;overflow:hidden;transition:transform .3s;
+}
+.btn-burg::before{content:'';position:absolute;inset:0;background:var(--gold-lt);transform:translateX(-101%);transition:transform .45s cubic-bezier(.77,0,.175,1)}
+.btn-burg:hover::before{transform:translateX(0)}
+.btn-burg span{position:relative;z-index:1}
+.btn-burg:hover{transform:translateY(-2px)}
+.btn-ghost-light{
+  font-size:10px;letter-spacing:2.5px;text-transform:uppercase;
+  color:rgba(242,237,228,.5);cursor:none;text-decoration:none;
+  display:flex;align-items:center;gap:10px;transition:color .3s;font-weight:500;
+}
+.btn-ghost-light:hover{color:var(--gold-lt)}
+.btn-ghost-light .a{display:inline-block;transition:transform .35s}
+.btn-ghost-light:hover .a{transform:translateX(8px)}
+
+/* Right panel — image */
+.hero-right {
+  position:relative;overflow:hidden;
+  opacity:0;animation:heroReveal 1.8s 1.8s cubic-bezier(.25,.46,.45,.94) forwards;
+}
+@keyframes heroReveal{from{opacity:0;transform:scaleX(.96) translateX(20px)}to{opacity:1;transform:scaleX(1) translateX(0)}}
+.hero-img {
+  width:100%;height:100%;object-fit:cover;
+  filter:brightness(.75) saturate(.9);
+  transform:scale(1.1);
+  animation:imgSettle 2.5s 1.8s cubic-bezier(.25,.46,.45,.94) forwards;
+}
+@keyframes imgSettle{to{transform:scale(1)}}
+.hero-img-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to right,rgba(92,26,26,.5) 0%,transparent 50%);
+}
+/* Floating stats card */
+.hero-stats-card {
+  position:absolute;bottom:48px;left:-48px;
+  background:var(--ivory);padding:32px 36px;
+  min-width:240px;
+  opacity:0;animation:fuU .8s 3.2s ease forwards;
+  box-shadow:0 24px 80px rgba(92,26,26,.18);
+}
+.hsc-row{display:flex;gap:32px}
+.hsc-item{}
+.hsc-n{font-family:'Fraunces',serif;font-size:38px;font-weight:200;color:var(--burg);line-height:1}
+.hsc-l{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--warm-gray);margin-top:5px}
+
+/* Scroll indicator */
+.hero-scroll-ind{
+  position:absolute;bottom:48px;right:40px;z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  opacity:0;animation:fuU .8s 3.4s ease forwards;
+}
+.hsi-line{width:1px;height:60px;background:rgba(242,237,228,.3);position:relative;overflow:hidden}
+.hsi-line::after{
+  content:'';position:absolute;top:-100%;left:0;
+  width:100%;height:100%;background:rgba(242,237,228,.8);
+  animation:scrollDrop 2.2s ease infinite;
+}
+@keyframes scrollDrop{0%{top:-100%}100%{top:100%}}
+.hsi-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(242,237,228,.4);writing-mode:vertical-rl}
+
+@keyframes fuU{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fuR{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+
+/* ── STATS STRIP ── */
+.stats-strip {
+  background:var(--charcoal);
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+.strip-item {
+  padding:44px 40px;
+  border-right:1px solid rgba(255,255,255,.05);
+  position:relative;overflow:hidden;
+  transition:background .4s;
+}
+.strip-item:last-child{border-right:none}
+.strip-item:hover{background:rgba(255,255,255,.03)}
+.strip-item::before{
+  content:'';position:absolute;bottom:0;left:0;
+  width:0;height:2px;background:var(--gold);
+  transition:width .5s ease;
+}
+.strip-item:hover::before{width:100%}
+.strip-n{font-family:'Fraunces',serif;font-size:52px;font-weight:200;color:var(--ivory);line-height:1;margin-bottom:8px}
+.strip-l{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--warm-gray)}
+
+/* ── SECTION UTILS ── */
+.rv{opacity:0;transform:translateY(50px);transition:opacity .9s ease,transform .9s ease}
+.rv.on{opacity:1;transform:translateY(0)}
+.rvl{opacity:0;transform:translateX(-50px);transition:opacity .9s ease,transform .9s ease}
+.rvl.on{opacity:1;transform:translateX(0)}
+.rvr{opacity:0;transform:translateX(50px);transition:opacity .9s ease,transform .9s ease}
+.rvr.on{opacity:1;transform:translateX(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}
+
+.stag{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--burg);margin-bottom:16px;display:flex;align-items:center;gap:14px}
+.stag::before{content:'';width:24px;height:1px;background:var(--burg)}
+.stitle{font-family:'Fraunces',serif;font-size:clamp(42px,5vw,72px);font-weight:200;line-height:1.0;color:var(--charcoal)}
+.stitle em{font-style:italic;color:var(--burg)}
+.stitle.lt{color:var(--ivory)}
+.stitle.lt em{color:var(--gold-lt)}
+
+/* ── PROPERTIES — HORIZONTAL REEL ── */
+.props-section{padding:130px 0 0}
+.props-head{padding:0 6%;margin-bottom:70px;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:24px}
+.view-link{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--burg);text-decoration:none;display:flex;align-items:center;gap:10px;transition:gap .3s;font-weight:500}
+.view-link:hover{gap:18px}
+
+/* Horizontal scroll reel */
+.prop-reel-wrap {
+  position:relative;
+  padding:0 6% 80px;
+  overflow:hidden;
+}
+.prop-reel {
+  display:flex;gap:24px;
+  overflow-x:auto;
+  padding-bottom:20px;
+  scrollbar-width:none;
+  scroll-snap-type:x mandatory;
+}
+.prop-reel::-webkit-scrollbar{display:none}
+/* Drag to scroll */
+.prop-reel.dragging{cursor:none;user-select:none}
+
+.prop-card {
+  flex-shrink:0;width:420px;
+  scroll-snap-align:start;
+  background:var(--white);
+  border:1px solid var(--line);
+  position:relative;overflow:hidden;cursor:none;
+  transition:transform .5s cubic-bezier(.25,.46,.45,.94),box-shadow .5s;
+}
+.prop-card:hover{transform:translateY(-12px);box-shadow:0 48px 100px rgba(92,26,26,.12)}
+
+.prop-card-img{
+  width:100%;height:280px;object-fit:cover;
+  display:block;filter:brightness(.85) saturate(.9);
+  transition:transform .8s cubic-bezier(.25,.46,.45,.94),filter .5s;
+}
+.prop-card:hover .prop-card-img{transform:scale(1.06);filter:brightness(.92) saturate(1)}
+
+.pc-badge {
+  position:absolute;top:24px;right:24px;
+  background:var(--burg);color:var(--ivory);
+  padding:7px 18px;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;
+  font-weight:500;
+}
+.pc-badge.gold-b{background:var(--gold);color:var(--white)}
+
+.pc-body{padding:28px 32px 32px}
+.pc-loc{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--warm-gray);margin-bottom:8px}
+.pc-name{font-family:'Fraunces',serif;font-size:26px;font-weight:200;color:var(--charcoal);margin-bottom:10px;line-height:1.1}
+.pc-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.pc-chip{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border:1px solid var(--line);color:var(--warm-gray);transition:border-color .3s,color .3s}
+.prop-card:hover .pc-chip{border-color:rgba(92,26,26,.25);color:var(--burg)}
+.pc-foot{display:flex;align-items:center;justify-content:space-between}
+.pc-price{font-family:'Fraunces',serif;font-size:30px;font-weight:200;color:var(--burg)}
+.pc-arrow{
+  width:42px;height:42px;background:var(--burg);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;color:var(--ivory);
+  transition:background .3s,transform .4s;
+}
+.prop-card:hover .pc-arrow{background:var(--gold);transform:rotate(-45deg)}
+
+/* Reel scroll buttons */
+.reel-btns{display:flex;gap:8px;margin-top:36px;padding:0 6%}
+.rbtn{
+  width:48px;height:48px;border:1.5px solid var(--line);
+  background:transparent;cursor:none;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;color:var(--burg);
+  transition:background .3s,border-color .3s,color .3s;
+}
+.rbtn:hover{background:var(--burg);border-color:var(--burg);color:var(--ivory)}
+
+/* ── FEATURE PAIR — FULLBLEED ── */
+.feature-section{
+  margin-top:130px;
+  display:grid;grid-template-columns:1fr 1fr;
+  height:680px;
+}
+.feature-cell{position:relative;overflow:hidden;cursor:none}
+.feature-img{
+  width:100%;height:100%;object-fit:cover;
+  filter:brightness(.55) saturate(.85);
+  transition:transform .9s cubic-bezier(.25,.46,.45,.94),filter .6s;
+  display:block;
+}
+.feature-cell:hover .feature-img{transform:scale(1.05);filter:brightness(.45)}
+.feature-overlay{
+  position:absolute;inset:0;
+  padding:52px;
+  background:linear-gradient(to top,rgba(30,26,22,.92) 0%,rgba(30,26,22,.3) 60%,transparent 100%);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  transition:background .5s;
+}
+.feature-cell:hover .feature-overlay{background:linear-gradient(to top,rgba(92,26,26,.9) 0%,rgba(92,26,26,.2) 60%,transparent 100%)}
+.feature-cat{font-size:9px;letter-spacing:3.5px;text-transform:uppercase;color:var(--gold-lt);margin-bottom:12px}
+.feature-name{font-family:'Fraunces',serif;font-size:38px;font-weight:200;color:var(--ivory);margin-bottom:10px;line-height:1.1}
+.feature-meta{font-size:12px;color:rgba(242,237,228,.5);margin-bottom:24px}
+.feature-price{font-family:'Fraunces',serif;font-size:44px;font-weight:200;color:var(--gold-lt);letter-spacing:-1px}
+.feature-btn{
+  position:absolute;top:44px;right:44px;
+  width:48px;height:48px;
+  border:1px solid rgba(242,237,228,.25);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;color:var(--ivory);
+  opacity:0;transform:translateY(-8px);
+  transition:opacity .4s,transform .4s,background .3s,border-color .3s;
+}
+.feature-cell:hover .feature-btn{opacity:1;transform:translateY(0)}
+.feature-btn:hover{background:var(--gold);border-color:var(--gold)}
+
+/* Dividing number */
+.feature-divider{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  font-family:'Fraunces',serif;font-size:200px;font-weight:200;font-style:italic;
+  color:rgba(242,237,228,.04);pointer-events:none;user-select:none;
+  z-index:2;white-space:nowrap;
+}
+
+/* ── ABOUT SECTION ── */
+.about-section{
+  padding:160px 6%;
+  display:grid;grid-template-columns:1fr 1.1fr;gap:100px;align-items:center;
+}
+.about-left{position:relative}
+.about-img-main{
+  width:100%;height:600px;object-fit:cover;
+  filter:brightness(.8) saturate(.9);display:block;
+}
+/* Decorative frame offset */
+.about-frame{
+  position:absolute;top:-24px;left:-24px;right:24px;bottom:24px;
+  border:1px solid var(--line);pointer-events:none;z-index:-1;
+}
+/* Gold line accent */
+.about-left::before{
+  content:'';position:absolute;
+  left:-24px;top:60px;bottom:60px;
+  width:3px;background:var(--burg);
+}
+.about-float{
+  position:absolute;bottom:-36px;right:-36px;
+  background:var(--burg);
+  padding:36px 40px;min-width:200px;
+  color:var(--ivory);
+}
+.af-n{font-family:'Fraunces',serif;font-size:56px;font-weight:200;line-height:1;color:var(--ivory)}
+.af-l{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(242,237,228,.55);margin-top:8px}
+
+.about-right{}
+.about-body{font-size:15px;font-weight:400;color:var(--warm-gray);line-height:2;margin:28px 0 44px}
+.about-list{list-style:none;display:flex;flex-direction:column;gap:0;margin-bottom:52px}
+.about-li{
+  display:flex;gap:20px;align-items:flex-start;
+  padding:20px 0;border-bottom:1px solid var(--line);
+}
+.ali-icon{
+  width:42px;height:42px;flex-shrink:0;
+  border:1.5px solid var(--line);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;color:var(--burg);
+  transition:background .3s,border-color .3s;
+}
+.about-li:hover .ali-icon{background:var(--burg);border-color:var(--burg);color:var(--ivory)}
+.ali-title{font-size:14px;font-weight:700;color:var(--charcoal);margin-bottom:4px}
+.ali-text{font-size:13px;color:var(--warm-gray);line-height:1.7}
+
+/* ── SERVICES ── */
+.services-section{
+  background:var(--charcoal);
+  padding:140px 6%;
+}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:80px;border:1px solid rgba(255,255,255,.06)}
+.svc-card{
+  padding:60px 48px;
+  border-right:1px solid rgba(255,255,255,.06);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  position:relative;overflow:hidden;cursor:none;
+  transition:background .5s;
+}
+.svc-card:nth-child(3n){border-right:none}
+.svc-card:hover{background:rgba(92,26,26,.15)}
+.svc-big{
+  font-family:'Fraunces',serif;
+  font-size:clamp(80px,8vw,120px);font-weight:200;font-style:italic;
+  color:rgba(255,255,255,.03);
+  position:absolute;top:-10px;right:-10px;line-height:1;
+  pointer-events:none;user-select:none;
+  transition:color .4s;
+}
+.svc-card:hover .svc-big{color:rgba(176,125,58,.08)}
+.svc-icon-wrap{
+  width:52px;height:52px;border:1px solid rgba(176,125,58,.25);
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;color:var(--gold);margin-bottom:28px;
+  transition:background .3s,border-color .3s;
+}
+.svc-card:hover .svc-icon-wrap{background:var(--gold);border-color:var(--gold);color:var(--charcoal)}
+.svc-t{font-family:'Fraunces',serif;font-size:24px;font-weight:200;color:var(--ivory);margin-bottom:14px;transition:color .3s}
+.svc-card:hover .svc-t{color:var(--gold-lt)}
+.svc-p{font-size:13px;font-weight:400;color:rgba(255,255,255,.35);line-height:1.9}
+.svc-num{
+  position:absolute;bottom:24px;right:24px;
+  font-size:10px;letter-spacing:3px;color:rgba(176,125,58,.3);
+}
+
+/* ── QUOTE PARALLAX ── */
+.quote-wrap{
+  height:600px;position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.quote-bg{
+  position:absolute;inset:-60px;
+  background:url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2200') center/cover no-repeat;
+  filter:brightness(.25) saturate(.6);
+}
+.quote-overlay{position:absolute;inset:0;background:rgba(92,26,26,.45)}
+.quote-inner{position:relative;z-index:1;text-align:center;max-width:860px;padding:0 6%}
+.q-mark{
+  font-family:'Fraunces',serif;font-size:140px;font-weight:200;font-style:italic;
+  color:var(--gold);opacity:.3;line-height:.5;display:block;margin-bottom:24px;
+}
+.q-text{
+  font-family:'Fraunces',serif;
+  font-size:clamp(22px,3.5vw,44px);
+  font-weight:200;font-style:italic;
+  color:var(--ivory);line-height:1.45;margin-bottom:36px;
+}
+.q-attr{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold-lt)}
+
+/* ── CONTACT ── */
+.contact-section{
+  padding:160px 6%;
+  display:grid;grid-template-columns:1fr 1.1fr;gap:120px;align-items:start;
+}
+.c-left{}
+.c-left .stitle{margin-bottom:28px}
+.c-body{font-size:14px;font-weight:400;color:var(--warm-gray);line-height:2;max-width:380px;margin-bottom:56px}
+.c-info{display:flex;flex-direction:column;gap:0}
+.ci-row{
+  display:grid;grid-template-columns:48px 1fr;gap:20px;
+  align-items:center;padding:22px 0;
+  border-bottom:1px solid var(--line);
+}
+.ci-icon{
+  width:42px;height:42px;border:1.5px solid var(--line);
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;color:var(--burg);
+  transition:background .3s,border-color .3s,color .3s;
+  flex-shrink:0;
+}
+.ci-row:hover .ci-icon{background:var(--burg);border-color:var(--burg);color:var(--ivory)}
+.ci-lbl{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--burg);margin-bottom:4px}
+.ci-val{font-size:14px;color:var(--charcoal);font-weight:400}
+
+/* FORM */
+.c-form{background:var(--charcoal);padding:56px;display:flex;flex-direction:column;gap:0}
+.cf-head{
+  font-family:'Fraunces',serif;font-size:28px;font-weight:200;font-style:italic;
+  color:var(--ivory);margin-bottom:40px;line-height:1.2;
+}
+.cf-row{display:grid;grid-template-columns:1fr 1fr}
+.cf-field{display:flex;flex-direction:column;border-bottom:1px solid rgba(255,255,255,.08);padding:0}
+.cf-row .cf-field:last-child{border-left:1px solid rgba(255,255,255,.08);padding-left:24px}
+.cf-lbl{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(176,125,58,.7);padding-top:20px}
+.cf-inp,.cf-sel,.cf-ta{
+  border:none;background:transparent;outline:none;
+  font-family:'Syne',sans-serif;font-size:15px;font-weight:400;
+  color:var(--ivory);padding:12px 0 20px;
+}
+.cf-inp::placeholder,.cf-ta::placeholder{color:rgba(255,255,255,.12)}
+.cf-sel option{background:var(--charcoal)}
+.cf-ta{resize:none;min-height:100px}
+.cf-submit{
+  margin-top:36px;padding:18px 52px;
+  background:var(--gold);color:var(--charcoal);
+  border:none;cursor:none;align-self:flex-start;
+  font-family:'Syne',sans-serif;font-size:10px;
+  letter-spacing:2.5px;text-transform:uppercase;font-weight:700;
+  position:relative;overflow:hidden;transition:transform .3s;
+}
+.cf-submit::before{content:'';position:absolute;inset:0;background:var(--ivory);transform:translateX(-101%);transition:transform .45s cubic-bezier(.77,0,.175,1)}
+.cf-submit:hover::before{transform:translateX(0)}
+.cf-submit span{position:relative;z-index:1}
+.cf-submit:hover span{color:var(--burg)}
+.cf-submit:hover{transform:translateY(-2px)}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--burg);
+  padding:80px 6% 48px;
+}
+.ft-top{
+  display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:60px;
+  margin-bottom:72px;
+  padding-bottom:72px;
+  border-bottom:1px solid rgba(242,237,228,.12);
+}
+.ft-logo{
+  font-family:'Fraunces',serif;font-style:italic;
+  font-size:40px;font-weight:200;color:var(--ivory);margin-bottom:16px;
+}
+.ft-desc{font-size:13px;color:rgba(242,237,228,.45);line-height:1.9;max-width:240px}
+.ft-col-h{font-size:9px;letter-spacing:3.5px;text-transform:uppercase;color:var(--gold-lt);margin-bottom:28px}
+.ft-links{display:flex;flex-direction:column;gap:14px}
+.ft-links a{
+  font-size:13px;color:rgba(242,237,228,.45);text-decoration:none;
+  transition:color .3s;display:flex;align-items:center;gap:8px;
+}
+.ft-links a::before{content:'↗';font-size:9px;color:rgba(176,125,58,.4)}
+.ft-links a:hover{color:var(--gold-lt)}
+.ft-bottom{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:11px;color:rgba(242,237,228,.3);flex-wrap:wrap;gap:16px;
+}
+.ft-socials{display:flex;gap:10px}
+.ft-soc{
+  width:36px;height:36px;
+  border:1px solid rgba(242,237,228,.15);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;color:rgba(242,237,228,.4);text-decoration:none;
+  transition:background .3s,color .3s,border-color .3s;
+}
+.ft-soc:hover{background:var(--gold-lt);color:var(--burg);border-color:var(--gold-lt)}
+
+/* ── MODAL ── */
+.m-bg{
+  position:fixed;inset:0;
+  background:rgba(30,26,22,.85);
+  backdrop-filter:blur(16px);
+  z-index:5000;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .4s;
+}
+.m-bg.open{opacity:1;pointer-events:all}
+.m-box{
+  background:var(--ivory);
+  max-width:520px;width:90%;
+  padding:56px;
+  border-left:4px solid var(--burg);
+  transform:translateY(36px) scale(.97);
+  transition:transform .45s cubic-bezier(.34,1.56,.64,1);
+  position:relative;
+}
+.m-bg.open .m-box{transform:translateY(0) scale(1)}
+.m-x{
+  position:absolute;top:24px;right:24px;
+  width:36px;height:36px;border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:var(--warm-gray);cursor:none;
+  transition:background .3s,color .3s,border-color .3s;
+}
+.m-x:hover{background:var(--burg);color:var(--ivory);border-color:var(--burg)}
+.m-cat{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--burg);margin-bottom:12px}
+.m-title{font-family:'Fraunces',serif;font-size:34px;font-weight:200;color:var(--charcoal);margin-bottom:16px;line-height:1.2}
+.m-desc{font-size:14px;color:var(--warm-gray);line-height:1.8;margin-bottom:28px}
+.m-price{font-family:'Fraunces',serif;font-size:52px;font-weight:200;color:var(--burg);margin-bottom:36px;line-height:1}
+.m-btns{display:flex;gap:12px}
+.mb1{flex:1;padding:15px;background:var(--burg);color:var(--ivory);border:none;cursor:none;font-family:'Syne',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:600;transition:background .3s}
+.mb1:hover{background:var(--burg2)}
+.mb2{padding:15px 20px;border:1.5px solid var(--line);background:transparent;cursor:none;font-family:'Syne',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--warm-gray);transition:border-color .3s,color .3s}
+.mb2:hover{border-color:var(--burg);color:var(--burg)}
 
 /* MOBILE */
-@media(max-width:900px){
-.about,.contact{grid-template-columns:1fr}
-.hero h1{font-size:38px}
-nav ul{display:none;position:absolute;top:70px;right:20px;background:white;padding:20px;border-radius:12px;flex-direction:column}
-nav ul.active{display:flex}
-.menu-toggle{display:block}
+@media(max-width:960px){
+  .hero{grid-template-columns:1fr;min-height:auto}
+  .hero-right{height:50vh}
+  .hero-stats-card{left:24px;bottom:24px}
+  .about-section,.contact-section{grid-template-columns:1fr;gap:60px}
+  .svc-grid{grid-template-columns:1fr}
+  .feature-section{grid-template-columns:1fr;height:auto}
+  .feature-cell{height:380px}
+  .stats-strip{grid-template-columns:1fr 1fr}
+  .ft-top{grid-template-columns:1fr 1fr;gap:40px}
+  .n-links,.n-btn{display:none}
+  .grid-lines{display:none}
+  .about-float{display:none}
+}
+@media(max-width:600px){
+  .stats-strip{grid-template-columns:1fr}
+  .ft-top{grid-template-columns:1fr}
+  .cf-row{grid-template-columns:1fr}
+  .cf-row .cf-field:last-child{border-left:none;padding-left:0}
 }
 </style>
 </head>
-
 <body>
 
-<nav>
-<div class="logo">PrimeEstate</div>
-<div class="menu-toggle" onclick="toggleMenu()">☰</div>
-<ul id="menu">
-<li><a href="#">Home</a></li>
-<li><a href="#properties">Properties</a></li>
-<li><a href="#services">Services</a></li>
-<li><a href="#contact">Contact</a></li>
-</ul>
+<!-- GRID LINES -->
+<div class="grid-lines">
+  <div class="grid-line"></div><div class="grid-line"></div>
+  <div class="grid-line"></div><div class="grid-line"></div>
+  <div class="grid-line"></div><div class="grid-line"></div>
+</div>
+
+<!-- CURSOR -->
+<div id="cdot"></div>
+<div id="cring"></div>
+
+<!-- PRELOADER -->
+<div id="pre">
+  <div class="pre-inner">
+    <span class="pre-word">Prime</span>
+    <span class="pre-word">Estate</span>
+    <span class="pre-word" style="font-size:clamp(16px,2vw,22px);letter-spacing:6px;font-style:normal;font-family:'Syne',sans-serif;font-weight:500;color:rgba(242,237,228,.4)">EXTRAORDINARY RESIDENCES</span>
+  </div>
+  <div class="pre-line-wrap"></div>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#" class="n-logo">Prime<span>Estate</span></a>
+  <ul class="n-links">
+    <li><a href="#properties">Properties</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="n-btn"><span>Book Consultation</span></button>
 </nav>
 
+<!-- HERO — SPLIT SCREEN -->
 <section class="hero">
-<div class="hero-content">
-<h1>Find Your Dream Property</h1>
-<p>Verified listings, expert advisory, seamless transactions.</p>
-<button class="btn">Explore Properties</button>
-</div>
+  <!-- Left: Dark burgundy panel -->
+  <div class="hero-left">
+    <div class="hero-deco-num">V</div>
+
+    <div>
+      <div class="hero-eye"><span class="hero-eye-dash"></span>Established 2010 · Mumbai</div>
+    </div>
+
+    <div>
+      <h1 class="hero-h">
+        Homes<br>That<br>Define <em>You</em>
+      </h1>
+    </div>
+
+    <div class="hero-left-foot">
+      <p class="hero-sub">Curated luxury residences for those who understand that a home is the ultimate expression of a life extraordinarily lived.</p>
+      <div class="hero-btns">
+        <button class="btn-burg" onclick="document.getElementById('properties').scrollIntoView({behavior:'smooth'})"><span>Explore Properties</span></button>
+        <a class="btn-ghost-light" href="#about">Our Philosophy <span class="a">→</span></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right: Full-bleed image -->
+  <div class="hero-right">
+    <img class="hero-img" src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=1600" alt="Luxury Property">
+    <div class="hero-img-overlay"></div>
+
+    <div class="hero-stats-card">
+      <div class="hsc-row">
+        <div class="hsc-item"><div class="hsc-n">840+</div><div class="hsc-l">Properties Sold</div></div>
+        <div class="hsc-item"><div class="hsc-n">14+</div><div class="hsc-l">Years Active</div></div>
+      </div>
+    </div>
+
+    <div class="hero-scroll-ind">
+      <div class="hsi-line"></div>
+      <div class="hsi-label">Scroll</div>
+    </div>
+  </div>
 </section>
 
-<div class="search">
-<div class="search-box">
-<input placeholder="Location">
-<select><option>Buy</option><option>Rent</option></select>
-<select><option>Property Type</option><option>House</option><option>Apartment</option></select>
-<button class="btn">Search</button>
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="strip-item rv"><div class="strip-n">₹2K Cr</div><div class="strip-l">Total Transaction Value</div></div>
+  <div class="strip-item rv d1"><div class="strip-n">840+</div><div class="strip-l">Properties Sold</div></div>
+  <div class="strip-item rv d2"><div class="strip-n">97%</div><div class="strip-l">Client Retention</div></div>
+  <div class="strip-item rv d3"><div class="strip-n">14+</div><div class="strip-l">Years of Excellence</div></div>
 </div>
-</div>
 
-<section id="properties" class="properties">
-<h2 style="text-align:center;margin-bottom:40px">Featured Properties</h2>
-<div class="grid">
+<!-- PROPERTIES REEL -->
+<section id="properties" class="props-section">
+  <div class="props-head rv">
+    <div>
+      <div class="stag">Curated Listings</div>
+      <h2 class="stitle">Featured <em>Residences</em></h2>
+    </div>
+    <a href="#" class="view-link">All Properties →</a>
+  </div>
 
-<div class="card" onclick="openProperty('Luxury Villa','Ultra luxury villa with private pool, landscaped garden, smart automation, and premium marble interiors.','₹2.5 Cr')"><span class="badge">Featured</span><img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811"><div><h3>Luxury Villa</h3><p>4 Bed · Pool · Garden</p><div class="price">₹2.5 Cr</div></div></div>
+  <div class="prop-reel-wrap">
+    <div class="prop-reel" id="propReel">
 
-<div class="card" onclick="openProperty('Modern Apartment','High‑rise apartment with skyline views, clubhouse access, gym, and secure parking.','₹85 L')"><span class="badge">Hot</span><img src="https://images.unsplash.com/photo-1523217582562-09d0def993a6"><div><h3>Modern Apartment</h3><p>2 Bed · City View</p><div class="price">₹85 L</div></div></div>
+      <div class="prop-card" onclick="openModal('Ocean View Villa','Sea-Facing Estate','Magnificent sea-facing villa commanding panoramic Arabian Sea views. Private infinity deck, direct beach access, and impeccably curated designer interiors throughout every room.','₹5.4 Cr')">
+        <div class="pc-badge gold-b">Signature</div>
+        <img class="prop-card-img" src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=700" alt="">
+        <div class="pc-body">
+          <div class="pc-loc">Goa, South Goa</div>
+          <div class="pc-name">Ocean View Villa</div>
+          <div class="pc-chips"><span class="pc-chip">4 Bed</span><span class="pc-chip">Beach Access</span><span class="pc-chip">Infinity Pool</span></div>
+          <div class="pc-foot"><div class="pc-price">₹5.4 Cr</div><div class="pc-arrow">→</div></div>
+        </div>
+      </div>
 
-<div class="card" onclick="openProperty('Family House','Comfortable independent house with parking, backyard space, and peaceful locality.','₹1.2 Cr')"><span class="badge">New</span><img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be"><div><h3>Family House</h3><p>3 Bed · Parking</p><div class="price">₹1.2 Cr</div></div></div>
+      <div class="prop-card" onclick="openModal('Glass Mansion','Architectural Landmark','A triumph of glass and steel. Biometric security, bespoke designer interiors, and an infinity pool that seems to merge with the horizon.','₹4.1 Cr')">
+        <div class="pc-badge">Premium</div>
+        <img class="prop-card-img" src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?q=80&w=700" alt="">
+        <div class="pc-body">
+          <div class="pc-loc">Bengaluru, Whitefield</div>
+          <div class="pc-name">Glass Mansion</div>
+          <div class="pc-chips"><span class="pc-chip">5 Bed</span><span class="pc-chip">Smart Home</span><span class="pc-chip">Infinity Pool</span></div>
+          <div class="pc-foot"><div class="pc-price">₹4.1 Cr</div><div class="pc-arrow">→</div></div>
+        </div>
+      </div>
 
-<div class="card" onclick="openProperty('Glass Modern Mansion','Architectural glass mansion with infinity pool, smart security, and designer interiors.','₹4.1 Cr')"><span class="badge">Premium</span><img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde"><div><h3>Glass Modern Mansion</h3><p>5 Bed · Smart Home · Pool</p><div class="price">₹4.1 Cr</div></div></div>
+      <div class="prop-card" onclick="openModal('Hilltop Retreat','Exclusive Estate','Where the valley meets the sky. An estate of absolute privacy — panoramic views, sculpted gardens, and architecture in harmony with nature.','₹3.2 Cr')">
+        <div class="pc-badge">Exclusive</div>
+        <img class="prop-card-img" src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?q=80&w=700" alt="">
+        <div class="pc-body">
+          <div class="pc-loc">Coorg, Karnataka</div>
+          <div class="pc-name">Hilltop Retreat</div>
+          <div class="pc-chips"><span class="pc-chip">4 Bed</span><span class="pc-chip">Valley View</span><span class="pc-chip">Private Drive</span></div>
+          <div class="pc-foot"><div class="pc-price">₹3.2 Cr</div><div class="pc-arrow">→</div></div>
+        </div>
+      </div>
 
-<div class="card" onclick="openProperty('Lake View Apartment','Premium apartment overlooking lake with balcony seating and sunset views.','₹1.6 Cr')"><span class="badge">Popular</span><img src="https://images.unsplash.com/photo-1501183638710-841dd1904471"><div><h3>Lake View Apartment</h3><p>3 Bed · Balcony · View</p><div class="price">₹1.6 Cr</div></div></div>
+      <div class="prop-card" onclick="openModal('Luxury Villa','Featured Estate','Ultra-luxury villa with a private pool, sculptured Italian gardens, full smart-home automation, and premium Carrara marble interiors.','₹2.5 Cr')">
+        <div class="pc-badge">Featured</div>
+        <img class="prop-card-img" src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=700" alt="">
+        <div class="pc-body">
+          <div class="pc-loc">Hyderabad, Jubilee Hills</div>
+          <div class="pc-name">Luxury Villa</div>
+          <div class="pc-chips"><span class="pc-chip">4 Bed</span><span class="pc-chip">Private Pool</span><span class="pc-chip">Garden</span></div>
+          <div class="pc-foot"><div class="pc-price">₹2.5 Cr</div><div class="pc-arrow">→</div></div>
+        </div>
+      </div>
 
-<div class="card" onclick="openProperty('Compact Studio','Fully furnished studio ideal for bachelors with modular storage and connectivity.','₹42 L')"><span class="badge">Deal</span><img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85"><div><h3>Compact Studio</h3><p>1 Bed · Furnished</p><div class="price">₹42 L</div></div></div>
+      <div class="prop-card" onclick="openModal('Lake View Apartment','Lakeside Residence','Premium residence commanding serene wraparound lake vistas. Sunrise balconies, bespoke interiors — a rare jewel for those who seek tranquility.','₹1.6 Cr')">
+        <div class="pc-badge">Popular</div>
+        <img class="prop-card-img" src="https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=700" alt="">
+        <div class="pc-body">
+          <div class="pc-loc">Pune, Koregaon Park</div>
+          <div class="pc-name">Lake View Apartment</div>
+          <div class="pc-chips"><span class="pc-chip">3 Bed</span><span class="pc-chip">Lake Front</span><span class="pc-chip">Balcony</span></div>
+          <div class="pc-foot"><div class="pc-price">₹1.6 Cr</div><div class="pc-arrow">→</div></div>
+        </div>
+      </div>
 
-<div class="card" onclick="openProperty('Hilltop Retreat','Hilltop luxury retreat with panoramic views, private driveway, garden lounge, and security system.','₹3.2 Cr')"><span class="badge">Luxury</span><img src="https://images.unsplash.com/photo-1600585152220-90363fe7e115"><div><h3>Hilltop Retreat</h3><p>4 Bed · Scenic · Private</p><div class="price">₹3.2 Cr</div></div></div>
+    </div>
 
-<div class="card" onclick="openProperty('Urban Duplex','Urban duplex featuring rooftop terrace, co‑working room, premium interiors, and parking.','₹1.9 Cr')"><span class="badge">New</span><img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d"><div><h3>Urban Duplex</h3><p>3 Bed · Terrace</p><div class="price">₹1.9 Cr</div></div></div>
-
-<div class="card" onclick="openProperty('City Investment Flat','Strategic investment flat in growth corridor delivering strong rental yield.','₹78 L')"><span class="badge">Investment</span><img src="https://images.unsplash.com/photo-1560448075-bb485b067938"><div><h3>City Investment Flat</h3><p>2 Bed · High ROI Area</p><div class="price">₹78 L</div></div></div>
-
-<div class="card" onclick="openProperty('Ocean View Villa','Sea facing luxury villa with infinity deck, private beach access, and designer interiors.','₹5.4 Cr')"><span class="badge">Luxury</span><img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511"><div><h3>Ocean View Villa</h3><p>4 Bed · Sea Facing</p><div class="price">₹5.4 Cr</div></div></div>
-
-<div class="card" onclick="openProperty('Suburban Family Home','Peaceful suburban home with garden, garage, kids play area, and community park.','₹1.35 Cr')"><span class="badge">Family</span><img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6"><div><h3>Suburban Family Home</h3><p>3 Bed · Garden · Garage</p><div class="price">₹1.35 Cr</div></div></div>
-
-</div>
+    <div class="reel-btns">
+      <button class="rbtn" id="reelPrev">←</button>
+      <button class="rbtn" id="reelNext">→</button>
+    </div>
+  </div>
 </section>
 
-<section id="services">
-<h2 style="text-align:center;margin-bottom:40px">Why Choose PrimeEstate</h2>
-<div class="services-grid">
-<div class="service"><h3>Verified Listings</h3><p>No fake properties</p></div>
-<div class="service"><h3>Market Insights</h3><p>Data-driven pricing</p></div>
-<div class="service"><h3>End‑to‑End Support</h3><p>From visit to registry</p></div>
+<!-- FEATURE PAIR — FULL BLEED -->
+<div class="feature-section rv">
+  <div class="feature-divider">I</div>
+
+  <div class="feature-cell" onclick="openModal('Ocean View Villa','Signature Listing','The crown jewel of our portfolio. An estate where every morning begins with the sound of waves and a horizon that belongs to you alone.','₹5.4 Cr')">
+    <img class="feature-img" src="https://images.unsplash.com/photo-1560184897-ae75f418493e?q=80&w=1200" alt="">
+    <div class="feature-btn">↗</div>
+    <div class="feature-overlay">
+      <div class="feature-cat">Signature Estate</div>
+      <div class="feature-name">Ocean View Villa</div>
+      <div class="feature-meta">Goa · 4 Bed · Sea Facing · Private Beach</div>
+      <div class="feature-price">₹5.4 Cr</div>
+    </div>
+  </div>
+
+  <div class="feature-cell" onclick="openModal('Glass Mansion','New Arrival','Architecture as art. Every pane of glass a frame, every room a gallery. This is how the future chooses to live.','₹4.1 Cr')">
+    <img class="feature-img" src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?q=80&w=1200" alt="">
+    <div class="feature-btn">↗</div>
+    <div class="feature-overlay">
+      <div class="feature-cat">New Arrival</div>
+      <div class="feature-name">Glass Mansion</div>
+      <div class="feature-meta">Bengaluru · 5 Bed · Smart Home · Pool</div>
+      <div class="feature-price">₹4.1 Cr</div>
+    </div>
+  </div>
 </div>
+
+<!-- ABOUT -->
+<section id="about" class="about-section">
+  <div class="about-left rvl">
+    <div class="about-frame"></div>
+    <img class="about-img-main" src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=900" alt="PrimeEstate Office">
+    <div class="about-float">
+      <div class="af-n">₹2K<br>Cr</div>
+      <div class="af-l">In Transactions Closed</div>
+    </div>
+  </div>
+  <div class="rvr d1">
+    <div class="stag">Our Philosophy</div>
+    <h2 class="stitle">Not Just<br>a Home —<br><em>A Legacy</em></h2>
+    <p class="about-body">PrimeEstate was founded on a singular belief: that extraordinary properties demand extraordinary representation. For 14 years, we have been the trusted partner of India's most discerning buyers, sellers, and investors — guiding every transaction with precision, integrity, and care.</p>
+    <ul class="about-list">
+      <li class="about-li">
+        <div class="ali-icon">✦</div>
+        <div><div class="ali-title">Verified Listings Only</div><div class="ali-text">Every property is thoroughly documented. No ghost listings, no duplicates — only genuine opportunities.</div></div>
+      </li>
+      <li class="about-li">
+        <div class="ali-icon">◎</div>
+        <div><div class="ali-title">Data-Driven Insights</div><div class="ali-text">Proprietary market research informs every recommendation — pricing, timing, and growth corridors.</div></div>
+      </li>
+      <li class="about-li">
+        <div class="ali-icon">⊙</div>
+        <div><div class="ali-title">White-Glove Advisory</div><div class="ali-text">From first viewing to final registry — our advisors walk beside you at every step.</div></div>
+      </li>
+    </ul>
+    <button class="btn-burg"><span>Meet Our Team →</span></button>
+  </div>
 </section>
 
-<section class="cta">
-<h2>Looking to Buy or Sell?</h2>
-<p>Talk with our property experts today.</p>
-<button class="btn">Contact Agent</button>
+<!-- SERVICES -->
+<section id="services" class="services-section">
+  <div class="rv">
+    <div class="stag" style="color:var(--gold-lt)"><span style="background:var(--gold-lt);display:inline-block;width:24px;height:1px;margin-right:14px;vertical-align:middle"></span>What We Offer</div>
+    <h2 class="stitle lt">Our <em>Expertise</em></h2>
+  </div>
+  <div class="svc-grid">
+    <div class="svc-card rv">
+      <div class="svc-big">01</div>
+      <div class="svc-icon-wrap">✦</div>
+      <div class="svc-t">Verified Listings</div>
+      <p class="svc-p">Every property listed with PrimeEstate has been personally inspected, legally verified, and professionally photographed. You see only what is real.</p>
+      <div class="svc-num">01 / 03</div>
+    </div>
+    <div class="svc-card rv d1">
+      <div class="svc-big">02</div>
+      <div class="svc-icon-wrap">◎</div>
+      <div class="svc-t">Market Intelligence</div>
+      <p class="svc-p">Our in-house research team tracks micro-markets, yield corridors, and appreciation trajectories — so every investment decision is data-informed and defensible.</p>
+      <div class="svc-num">02 / 03</div>
+    </div>
+    <div class="svc-card rv d2">
+      <div class="svc-big">03</div>
+      <div class="svc-icon-wrap">⊙</div>
+      <div class="svc-t">End-to-End Support</div>
+      <p class="svc-p">Negotiations, due diligence, legal documentation, home loans — we handle every thread so you can focus on what matters: choosing your home.</p>
+      <div class="svc-num">03 / 03</div>
+    </div>
+  </div>
 </section>
 
-<section id="contact" class="contact">
-<div>
-<h2>About PrimeEstate</h2>
-<p>PrimeEstate is a premium real estate advisory helping buyers, sellers, and investors make confident decisions through verified listings, data insights, and expert negotiation.</p>
-<p style="margin-top:20px">Phone: +91 90000 00000</p>
+<!-- QUOTE -->
+<div class="quote-wrap">
+  <div class="quote-bg" id="qBg"></div>
+  <div class="quote-overlay"></div>
+  <div class="quote-inner rv">
+    <span class="q-mark">"</span>
+    <p class="q-text">A great home doesn't just shelter a life — it amplifies it. At PrimeEstate, we find the properties that make your story worth telling.</p>
+    <div class="q-attr">— Vikram Nair, Founder & CEO</div>
+  </div>
 </div>
-<form>
-<input placeholder="Name">
-<input placeholder="Email">
-<textarea rows="4" placeholder="Message"></textarea>
-<button class="btn">Send</button>
-</form>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="c-left rvl">
+    <div class="stag">Get in Touch</div>
+    <h2 class="stitle">Let's Find<br>Your <em>Perfect<br>Home</em></h2>
+    <p class="c-body">Tell us your vision. Our advisors will curate a shortlist of properties that match exactly what you're looking for — and nothing less.</p>
+    <div class="c-info">
+      <div class="ci-row">
+        <div class="ci-icon">✆</div>
+        <div><div class="ci-lbl">Phone</div><div class="ci-val">+91 90000 00000</div></div>
+      </div>
+      <div class="ci-row">
+        <div class="ci-icon">✉</div>
+        <div><div class="ci-lbl">Email</div><div class="ci-val">hello@primeestate.in</div></div>
+      </div>
+      <div class="ci-row">
+        <div class="ci-icon">⊙</div>
+        <div><div class="ci-lbl">Office</div><div class="ci-val">One World Centre, Mumbai 400013</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rvr d1">
+    <div class="c-form">
+      <div class="cf-head">Reserve a<br><em style="color:var(--gold-lt)">Consultation</em></div>
+      <div class="cf-row">
+        <div class="cf-field"><div class="cf-lbl">Full Name</div><input class="cf-inp" placeholder="Your name"></div>
+        <div class="cf-field"><div class="cf-lbl">Phone</div><input class="cf-inp" placeholder="+91 00000 00000"></div>
+      </div>
+      <div class="cf-row">
+        <div class="cf-field"><div class="cf-lbl">Budget</div>
+          <select class="cf-sel"><option>Under ₹1 Cr</option><option>₹1–3 Cr</option><option>₹3–6 Cr</option><option>₹6 Cr+</option></select>
+        </div>
+        <div class="cf-field"><div class="cf-lbl">Property Type</div>
+          <select class="cf-sel"><option>Villa</option><option>Apartment</option><option>Mansion</option><option>Plot</option></select>
+        </div>
+      </div>
+      <div class="cf-field" style="padding:0;border-left:none">
+        <div class="cf-lbl">Message</div>
+        <textarea class="cf-ta" placeholder="Describe your ideal property…"></textarea>
+      </div>
+      <button class="cf-submit"><span>Send Enquiry →</span></button>
+    </div>
+  </div>
 </section>
 
-<footer>© 2026 PrimeEstate</footer>
+<!-- FOOTER -->
+<footer>
+  <div class="ft-top">
+    <div>
+      <div class="ft-logo">PrimeEstate</div>
+      <p class="ft-desc">India's most trusted luxury real estate advisory. Curating extraordinary properties since 2010.</p>
+    </div>
+    <div>
+      <div class="ft-col-h">Explore</div>
+      <div class="ft-links">
+        <a href="#">All Properties</a>
+        <a href="#">Luxury Villas</a>
+        <a href="#">Apartments</a>
+        <a href="#">Investment</a>
+      </div>
+    </div>
+    <div>
+      <div class="ft-col-h">Company</div>
+      <div class="ft-links">
+        <a href="#">About Us</a>
+        <a href="#">Our Team</a>
+        <a href="#">Press</a>
+        <a href="#">Careers</a>
+      </div>
+    </div>
+    <div>
+      <div class="ft-col-h">Connect</div>
+      <div class="ft-links">
+        <a href="#">+91 90000 00000</a>
+        <a href="#">hello@primeestate.in</a>
+        <a href="#">Mumbai Office</a>
+        <a href="#">Enquiry Form</a>
+      </div>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <span>© 2026 PrimeEstate. All rights reserved.</span>
+    <div class="ft-socials">
+      <a class="ft-soc" href="#">in</a>
+      <a class="ft-soc" href="#">ig</a>
+      <a class="ft-soc" href="#">tw</a>
+    </div>
+    <span>Privacy · Terms</span>
+  </div>
+</footer>
 
-<div id="propertyModal" style="position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:2000">
-<div style="background:white;padding:30px;border-radius:12px;max-width:420px;width:90%">
-<h3 id="propTitle"></h3>
-<p id="propDesc" style="margin:15px 0;color:#555"></p>
-<h4 id="propPrice" style="color:#1e3a8a"></h4>
-<button class="btn" style="margin-top:15px" onclick="closeProperty()">Close</button>
-</div>
+<!-- MODAL -->
+<div class="m-bg" id="mBg" onclick="handleMClick(event)">
+  <div class="m-box" id="mBox">
+    <div class="m-x" onclick="closeModal()">✕</div>
+    <div class="m-cat" id="mCat"></div>
+    <div class="m-title" id="mTit"></div>
+    <p class="m-desc" id="mDsc"></p>
+    <div class="m-price" id="mPrc"></div>
+    <div class="m-btns">
+      <button class="mb1">Schedule a Viewing</button>
+      <button class="mb2" onclick="closeModal()">Close</button>
+    </div>
+  </div>
 </div>
 
 <script>
-function toggleMenu(){document.getElementById('menu').classList.toggle('active')}
-function openProperty(title,desc,price){
-document.getElementById('propTitle').innerText=title
- document.getElementById('propDesc').innerText=desc
- document.getElementById('propPrice').innerText=price
- document.getElementById('propertyModal').style.display='flex'
-}
-function closeProperty(){document.getElementById('propertyModal').style.display='none'}
-</script>
+/* PRELOADER */
+window.addEventListener('load',()=>{
+  setTimeout(()=>document.getElementById('pre').classList.add('out'), 2600);
+});
 
+/* CURSOR */
+const cd=document.getElementById('cdot'), cr=document.getElementById('cring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cd.style.left=mx+'px';cd.style.top=my+'px';
+});
+(function loop(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(loop)})();
+document.querySelectorAll('a,button,.prop-card,.feature-cell,.svc-card,.ci-row,.about-li,.strip-item').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cd.classList.add('h');cr.classList.add('h')});
+  el.addEventListener('mouseleave',()=>{cd.classList.remove('h');cr.classList.remove('h')});
+});
+
+/* NAV */
+window.addEventListener('scroll',()=>document.getElementById('mainNav').classList.toggle('stuck',scrollY>70));
+
+/* SCROLL REVEAL */
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')})},{threshold:.1});
+document.querySelectorAll('.rv,.rvl,.rvr').forEach(el=>io.observe(el));
+
+/* HERO PARALLAX */
+window.addEventListener('scroll',()=>{
+  const h=document.querySelector('.hero-img');
+  if(h)h.style.transform=`scale(1) translateY(${scrollY*.18}px)`;
+  const bg=document.getElementById('qBg');
+  if(bg){const rect=bg.parentElement.getBoundingClientRect();bg.style.transform=`translateY(${rect.top*.2}px)`;}
+});
+
+/* REEL DRAG */
+const reel=document.getElementById('propReel');
+let isDown=false,startX,scrollLeft;
+reel.addEventListener('mousedown',e=>{isDown=true;reel.classList.add('dragging');startX=e.pageX-reel.offsetLeft;scrollLeft=reel.scrollLeft});
+reel.addEventListener('mouseleave',()=>{isDown=false;reel.classList.remove('dragging')});
+reel.addEventListener('mouseup',()=>{isDown=false;reel.classList.remove('dragging')});
+reel.addEventListener('mousemove',e=>{if(!isDown)return;e.preventDefault();const x=e.pageX-reel.offsetLeft;const walk=(x-startX)*2;reel.scrollLeft=scrollLeft-walk});
+
+/* REEL BUTTONS */
+document.getElementById('reelNext').addEventListener('click',()=>{reel.scrollBy({left:444,behavior:'smooth'})});
+document.getElementById('reelPrev').addEventListener('click',()=>{reel.scrollBy({left:-444,behavior:'smooth'})});
+
+/* MODAL */
+function openModal(t,cat,d,p){
+  document.getElementById('mTit').textContent=t;
+  document.getElementById('mCat').textContent=cat;
+  document.getElementById('mDsc').textContent=d;
+  document.getElementById('mPrc').textContent=p;
+  document.getElementById('mBg').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){document.getElementById('mBg').classList.remove('open');document.body.style.overflow=''}
+function handleMClick(e){if(e.target===document.getElementById('mBg'))closeModal()}
+</script>
 </body>
 </html>

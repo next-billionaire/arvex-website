@@ -3,237 +3,1110 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aura Brew — Premium Specialty Cafe</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Noir & Bloom — Artisan Café</title>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Poppins,sans-serif;background:#0b0b0b;color:#fff}
+:root {
+  --espresso: #1a1008;
+  --roast: #2d1f0e;
+  --amber: #c8873a;
+  --cream: #f5ede0;
+  --latte: #d4b896;
+  --fog: #8a7566;
+  --white: #fdf9f4;
+  --leaf: #3d4a2e;
+}
 
-/* NAV */
-nav{position:fixed;width:100%;padding:18px 6%;display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,.6);backdrop-filter:blur(14px);z-index:999}
-.logo{font-size:26px;font-weight:700}
-nav ul{display:flex;gap:30px;list-style:none}
-nav a{color:#fff;text-decoration:none;opacity:.85}
-.menu-toggle{display:none;font-size:28px;cursor:pointer}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
 
-/* HERO */
-.hero{height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 20px;background:url('https://images.unsplash.com/photo-1509042239860-f550ce710b93') center/cover}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.4),#0b0b0b)}
-.hero-content{position:relative;max-width:700px}
-.hero h1{font-family:Playfair Display;font-size:60px;margin-bottom:15px}
-.hero p{opacity:.8;margin-bottom:25px}
-.btn{padding:14px 36px;border:none;border-radius:50px;background:linear-gradient(45deg,#c8a97e,#ffce8a);color:#000;font-weight:600;cursor:pointer}
+body {
+  font-family: 'Jost', sans-serif;
+  background: var(--espresso);
+  color: var(--cream);
+  overflow-x: hidden;
+  cursor: none;
+}
 
-/* TRUST */
-.trust{display:flex;justify-content:center;gap:40px;padding:30px 10px;background:#111;font-size:14px;opacity:.85;flex-wrap:wrap}
+/* ─── GRAIN OVERLAY ─── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 10000;
+}
 
-/* MENU */
-section{padding:90px 6%}
-.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:25px}
-.menu-card{background:#161616;border-radius:16px;overflow:hidden;transition:.3s}
-.menu-card:hover{transform:translateY(-6px)}
-.menu-card img{width:100%;height:200px;object-fit:cover}
-.menu-info{padding:16px}
-.price{color:#c8a97e;margin-top:6px}
+/* ─── CURSOR ─── */
+.cur { position: fixed; pointer-events: none; z-index: 9999; mix-blend-mode: difference; }
+.cur-dot {
+  width: 8px; height: 8px; background: var(--cream); border-radius: 50%;
+  transform: translate(-50%, -50%); transition: width .3s, height .3s;
+}
+.cur-ring {
+  width: 44px; height: 44px;
+  border: 1px solid rgba(200,135,58,0.7); border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width .4s ease, height .4s ease, opacity .3s, border-color .3s;
+}
+.cur-dot.expand { width: 5px; height: 5px; }
+.cur-ring.expand { width: 70px; height: 70px; border-color: rgba(200,135,58,0.35); }
 
-/* GALLERY */
-.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px}
-.gallery img{width:100%;height:180px;object-fit:cover;border-radius:10px}
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--espresso); }
+::-webkit-scrollbar-thumb { background: var(--amber); }
 
-/* CONTACT */
-.contact{text-align:center;background:#111}
+/* ─── PRELOADER ─── */
+#preloader {
+  position: fixed; inset: 0;
+  background: var(--espresso);
+  z-index: 99999;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 28px;
+  transition: opacity 0.8s ease, visibility 0.8s;
+}
+#preloader.hidden { opacity: 0; visibility: hidden; }
+.pre-logo {
+  font-family: 'Bodoni Moda', serif;
+  font-size: 48px; font-style: italic; color: var(--amber);
+  letter-spacing: 2px;
+  animation: preLogoPulse 1.5s ease infinite alternate;
+}
+@keyframes preLogoPulse { from { opacity: 0.4; } to { opacity: 1; } }
+.pre-bar-wrap { width: 200px; height: 1px; background: rgba(200,135,58,0.2); }
+.pre-bar {
+  height: 100%; background: var(--amber);
+  width: 0; animation: preBar 2.2s cubic-bezier(0.77,0,0.175,1) forwards;
+}
+@keyframes preBar { to { width: 100%; } }
+.pre-text { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--fog); }
 
-/* MAP */
-.map iframe{width:100%;height:300px;border:0;border-radius:12px}
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; width: 100%; z-index: 1000;
+  padding: 32px 6%;
+  display: flex; justify-content: space-between; align-items: center;
+  transition: padding .5s, background .5s, backdrop-filter .5s;
+}
+nav.scrolled {
+  padding: 18px 6%;
+  background: rgba(26,16,8,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(200,135,58,0.12);
+}
+.nav-logo {
+  font-family: 'Bodoni Moda', serif;
+  font-size: 24px; font-style: italic; color: var(--amber);
+  letter-spacing: 1px; text-decoration: none;
+}
+.nav-links { display: flex; gap: 44px; list-style: none; }
+.nav-links a {
+  text-decoration: none; color: rgba(245,237,224,0.7);
+  font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 400;
+  transition: color .3s;
+  position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -4px; left: 0;
+  width: 0; height: 1px; background: var(--amber);
+  transition: width .35s;
+}
+.nav-links a:hover { color: var(--amber); }
+.nav-links a:hover::after { width: 100%; }
+.nav-reserve {
+  padding: 11px 30px; border: 1px solid rgba(200,135,58,0.5);
+  color: var(--amber); font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+  background: transparent; cursor: none; font-family: 'Jost', sans-serif;
+  transition: background .35s, color .35s, border-color .35s;
+}
+.nav-reserve:hover { background: var(--amber); color: var(--espresso); border-color: var(--amber); }
 
-/* FOOTER */
-footer{padding:40px;text-align:center;background:#000;opacity:.7}
+/* ─── HERO ─── */
+.hero {
+  height: 100vh; min-height: 700px;
+  position: relative; overflow: hidden;
+  display: flex; align-items: center;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=2070') center/cover no-repeat;
+  transform: scale(1.1);
+  animation: heroReveal 2s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
+  filter: brightness(0.4);
+}
+@keyframes heroReveal { to { transform: scale(1); filter: brightness(0.35); } }
+.hero-gradient {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(26,16,8,0.95) 0%, rgba(26,16,8,0.4) 50%, rgba(45,31,14,0.6) 100%);
+}
 
-/* FLOAT CTA */
-.float{position:fixed;bottom:20px;right:20px;padding:16px 26px;border-radius:40px;background:linear-gradient(45deg,#c8a97e,#ffce8a);color:#000;font-weight:600;cursor:pointer}
+/* Decorative circle */
+.hero-circle {
+  position: absolute; right: 8%; top: 50%; transform: translateY(-50%);
+  width: 480px; height: 480px;
+  border: 1px solid rgba(200,135,58,0.15);
+  border-radius: 50%;
+  animation: circleRotate 30s linear infinite;
+}
+.hero-circle::before {
+  content: ''; position: absolute; inset: 30px;
+  border: 1px solid rgba(200,135,58,0.08); border-radius: 50%;
+}
+.hero-circle::after {
+  content: ''; position: absolute; inset: 60px;
+  border: 1px solid rgba(200,135,58,0.05); border-radius: 50%;
+}
+@keyframes circleRotate { to { transform: translateY(-50%) rotate(360deg); } }
 
-/* BOOKING MODAL */
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:1000}
-.modal-content{background:#111;padding:30px;border-radius:12px;width:90%;max-width:400px;display:flex;flex-direction:column;gap:12px}
-.modal input{padding:12px;border:none;border-radius:8px;background:#1c1c1c;color:#fff}
+.hero-content {
+  position: relative; z-index: 2;
+  padding: 0 6%; max-width: 780px;
+}
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 14px;
+  font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--amber);
+  margin-bottom: 30px;
+  opacity: 0; animation: fu 1s 2.8s ease forwards;
+}
+.hero-tag-line { width: 40px; height: 1px; background: var(--amber); }
 
-/* MOBILE */
-@media(max-width:768px){
-nav ul{display:none;position:absolute;top:70px;right:20px;background:#111;padding:20px;border-radius:12px;flex-direction:column}
-nav ul.active{display:flex}
-.menu-toggle{display:block}
-.hero h1{font-size:38px}
+.hero h1 {
+  font-family: 'Bodoni Moda', serif;
+  font-size: clamp(56px, 8vw, 108px);
+  font-weight: 400; line-height: 0.95; letter-spacing: -2px;
+  color: var(--white);
+  margin-bottom: 36px;
+  opacity: 0; animation: fu 1.1s 3s ease forwards;
+}
+.hero h1 em { display: block; font-style: italic; color: var(--amber); }
+
+.hero-sub {
+  font-size: 15px; font-weight: 200; line-height: 1.9;
+  color: rgba(245,237,224,0.55); max-width: 440px;
+  margin-bottom: 56px;
+  opacity: 0; animation: fu 1s 3.2s ease forwards;
+}
+.hero-actions {
+  display: flex; gap: 20px; align-items: center;
+  opacity: 0; animation: fu 1s 3.4s ease forwards;
+}
+.btn-amber {
+  padding: 18px 48px; background: var(--amber);
+  color: var(--espresso); border: none; cursor: none;
+  font-family: 'Jost', sans-serif; font-size: 11px;
+  letter-spacing: 2.5px; text-transform: uppercase; font-weight: 500;
+  position: relative; overflow: hidden; transition: transform .3s;
+}
+.btn-amber::before {
+  content: ''; position: absolute; inset: 0;
+  background: var(--cream);
+  transform: translateX(-101%);
+  transition: transform .45s cubic-bezier(0.77,0,0.175,1);
+}
+.btn-amber:hover::before { transform: translateX(0); }
+.btn-amber span { position: relative; z-index: 1; }
+.btn-amber:hover { transform: translateY(-2px); }
+.btn-outline-ghost {
+  font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: rgba(245,237,224,0.65); display: flex; align-items: center; gap: 10px;
+  cursor: none; text-decoration: none; transition: color .3s;
+}
+.btn-outline-ghost:hover { color: var(--amber); }
+.btn-outline-ghost .arr { display: inline-block; transition: transform .35s; }
+.btn-outline-ghost:hover .arr { transform: translateX(8px); }
+
+.hero-scroll {
+  position: absolute; bottom: 40px; left: 6%;
+  display: flex; align-items: center; gap: 14px; z-index: 2;
+  font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--fog);
+  opacity: 0; animation: fu 1s 3.8s ease forwards;
+}
+.scroll-line {
+  width: 50px; height: 1px; background: rgba(200,135,58,0.4);
+  position: relative; overflow: hidden;
+}
+.scroll-line::after {
+  content: ''; position: absolute; top: 0; left: -100%;
+  width: 100%; height: 100%; background: var(--amber);
+  animation: scrollPulse 2s ease infinite;
+}
+@keyframes scrollPulse { 0%{left:-100%} 100%{left:100%} }
+
+.hero-year {
+  position: absolute; bottom: 40px; right: 6%; z-index: 2;
+  font-family: 'Bodoni Moda', serif; font-size: 11px;
+  letter-spacing: 3px; color: rgba(200,135,58,0.4);
+  opacity: 0; animation: fu 1s 3.8s ease forwards;
+}
+
+@keyframes fu {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── MARQUEE ─── */
+.marquee-wrap {
+  overflow: hidden;
+  padding: 22px 0;
+  border-top: 1px solid rgba(200,135,58,0.12);
+  border-bottom: 1px solid rgba(200,135,58,0.12);
+}
+.marquee-track {
+  display: inline-flex; white-space: nowrap;
+  animation: marq 28s linear infinite;
+}
+.marquee-track:hover { animation-play-state: paused; }
+.marq-item {
+  display: inline-flex; align-items: center; gap: 16px;
+  font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--fog); padding: 0 36px;
+}
+.marq-diamond {
+  width: 5px; height: 5px; background: var(--amber);
+  transform: rotate(45deg); flex-shrink: 0;
+}
+@keyframes marq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ─── SECTION UTILS ─── */
+.reveal { opacity: 0; transform: translateY(44px); transition: opacity .9s ease, transform .9s ease; }
+.reveal.vis { opacity: 1; transform: translateY(0); }
+.reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity .9s ease, transform .9s ease; }
+.reveal-left.vis { opacity: 1; transform: translateX(0); }
+.reveal-right { opacity: 0; transform: translateX(40px); transition: opacity .9s ease, transform .9s ease; }
+.reveal-right.vis { opacity: 1; transform: translateX(0); }
+.d1 { transition-delay: .1s; }
+.d2 { transition-delay: .2s; }
+.d3 { transition-delay: .3s; }
+.d4 { transition-delay: .4s; }
+.d5 { transition-delay: .5s; }
+
+.sec-tag {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--amber);
+  margin-bottom: 20px;
+}
+.sec-tag::before { content: ''; width: 28px; height: 1px; background: var(--amber); }
+.sec-title {
+  font-family: 'Bodoni Moda', serif;
+  font-size: clamp(38px, 4.5vw, 62px); font-weight: 400; line-height: 1.1;
+  color: var(--white);
+}
+.sec-title em { font-style: italic; color: var(--amber); }
+.sec-title.dark { color: var(--espresso); }
+.sec-title.dark em { color: var(--amber); }
+
+/* ─── STORY / ABOUT ─── */
+.story-section {
+  padding: 140px 6%;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center;
+}
+.story-img-col { position: relative; }
+.story-img-frame {
+  position: relative;
+  width: 100%; padding-top: 125%;
+  overflow: hidden;
+}
+.story-img-frame img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(0.85);
+  transition: transform .8s cubic-bezier(0.25,.46,.45,.94);
+}
+.story-img-frame:hover img { transform: scale(1.05); }
+/* Decorative frame border */
+.story-img-frame::after {
+  content: ''; position: absolute;
+  top: 20px; left: 20px; right: -20px; bottom: -20px;
+  border: 1px solid rgba(200,135,58,0.2);
+  pointer-events: none; z-index: -1;
+}
+.story-badge {
+  position: absolute; bottom: -24px; right: -24px;
+  width: 130px; height: 130px;
+  background: var(--amber);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.story-badge-num {
+  font-family: 'Bodoni Moda', serif; font-size: 44px; font-weight: 400;
+  color: var(--espresso); line-height: 1;
+}
+.story-badge-text { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--espresso); margin-top: 4px; text-align: center; }
+
+.story-text { font-size: 15px; font-weight: 200; color: rgba(245,237,224,0.55); line-height: 2; margin: 28px 0 44px; }
+.story-meta { display: flex; gap: 40px; }
+.story-stat-num { font-family: 'Bodoni Moda', serif; font-size: 40px; color: var(--amber); }
+.story-stat-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--fog); margin-top: 4px; }
+
+/* ─── MENU ─── */
+.menu-section { padding: 120px 6%; background: var(--roast); }
+.menu-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 70px; flex-wrap: wrap; gap: 20px; }
+.menu-tabs { display: flex; gap: 0; border-bottom: 1px solid rgba(200,135,58,0.15); }
+.menu-tab {
+  padding: 12px 28px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--fog); cursor: none; background: none; border: none;
+  font-family: 'Jost', sans-serif;
+  border-bottom: 2px solid transparent; margin-bottom: -1px;
+  transition: color .3s, border-color .3s;
+}
+.menu-tab.active { color: var(--amber); border-bottom-color: var(--amber); }
+.menu-tab:hover { color: var(--cream); }
+
+.menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+.menu-card {
+  background: rgba(26,16,8,0.5);
+  padding: 40px 36px;
+  position: relative; overflow: hidden;
+  cursor: none;
+  transition: background .4s;
+  border: 1px solid transparent;
+  transition: background .4s, border-color .4s;
+}
+.menu-card::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(200,135,58,0.06), transparent);
+  opacity: 0; transition: opacity .4s;
+}
+.menu-card:hover { background: rgba(26,16,8,0.8); border-color: rgba(200,135,58,0.2); }
+.menu-card:hover::before { opacity: 1; }
+.menu-card-num {
+  font-family: 'Bodoni Moda', serif; font-size: 52px; font-weight: 400;
+  color: rgba(200,135,58,0.08); line-height: 1; margin-bottom: 20px;
+  transition: color .4s;
+}
+.menu-card:hover .menu-card-num { color: rgba(200,135,58,0.15); }
+.menu-img {
+  width: 100%; height: 200px; object-fit: cover;
+  margin-bottom: 24px; filter: brightness(0.8);
+  transition: transform .6s cubic-bezier(0.25,.46,.45,.94), filter .4s;
+}
+.menu-card:hover .menu-img { transform: scale(1.04); filter: brightness(0.9); }
+.menu-name {
+  font-family: 'Bodoni Moda', serif; font-size: 22px; font-weight: 400;
+  color: var(--white); margin-bottom: 10px;
+}
+.menu-desc { font-size: 13px; color: var(--fog); line-height: 1.8; margin-bottom: 24px; font-weight: 200; }
+.menu-footer { display: flex; align-items: center; justify-content: space-between; }
+.menu-price {
+  font-family: 'Bodoni Moda', serif; font-size: 24px; color: var(--amber);
+}
+.menu-btn {
+  width: 36px; height: 36px; border: 1px solid rgba(200,135,58,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; color: var(--amber);
+  transition: background .3s, transform .3s;
+}
+.menu-card:hover .menu-btn { background: var(--amber); color: var(--espresso); transform: rotate(-45deg); }
+
+/* ─── EXPERIENCE ─── */
+.exp-section { padding: 140px 6%; position: relative; overflow: hidden; }
+.exp-bg-text {
+  position: absolute; top: 60px; right: -20px;
+  font-family: 'Bodoni Moda', serif; font-size: 200px; font-weight: 400;
+  font-style: italic; color: rgba(200,135,58,0.03);
+  line-height: 1; pointer-events: none; user-select: none;
+}
+.exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.exp-visual { position: relative; }
+.exp-large-img {
+  width: 100%; height: 540px; object-fit: cover;
+  filter: brightness(0.75);
+  transition: transform .8s ease;
+}
+.exp-visual:hover .exp-large-img { transform: scale(1.02); }
+.exp-overlay-card {
+  position: absolute; bottom: -40px; right: -40px;
+  width: 220px; padding: 30px;
+  background: var(--amber);
+  color: var(--espresso);
+}
+.exp-overlay-title {
+  font-family: 'Bodoni Moda', serif; font-size: 14px; font-weight: 400;
+  margin-bottom: 8px; font-style: italic;
+}
+.exp-overlay-text { font-size: 11px; line-height: 1.7; font-weight: 400; }
+.exp-content { padding-bottom: 40px; }
+.exp-list { list-style: none; display: flex; flex-direction: column; gap: 24px; margin: 40px 0 50px; }
+.exp-list-item {
+  display: flex; gap: 20px; align-items: flex-start;
+  padding-bottom: 24px; border-bottom: 1px solid rgba(200,135,58,0.1);
+}
+.exp-list-item:last-child { border-bottom: none; padding-bottom: 0; }
+.exp-icon {
+  width: 44px; height: 44px; flex-shrink: 0;
+  border: 1px solid rgba(200,135,58,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; color: var(--amber);
+}
+.exp-item-title { font-size: 15px; color: var(--white); margin-bottom: 4px; }
+.exp-item-text { font-size: 13px; color: var(--fog); line-height: 1.7; font-weight: 200; }
+
+/* ─── QUOTE ─── */
+.quote-section {
+  padding: 120px 6%;
+  background: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=2070') center/cover no-repeat;
+  position: relative; text-align: center;
+}
+.quote-section::before {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(10,7,3,0.82);
+}
+.quote-inner { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+.quote-mark {
+  font-family: 'Bodoni Moda', serif; font-size: 120px; line-height: 0.5;
+  color: var(--amber); opacity: 0.4; margin-bottom: 20px; display: block;
+}
+.quote-text {
+  font-family: 'Bodoni Moda', serif; font-size: clamp(24px, 3vw, 40px);
+  font-style: italic; font-weight: 400; line-height: 1.5; color: var(--white);
+  margin-bottom: 36px;
+}
+.quote-author { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--amber); }
+
+/* ─── GALLERY STRIP ─── */
+.gallery-section { padding: 120px 0 120px 6%; }
+.gallery-header { margin-bottom: 60px; padding-right: 6%; }
+.gallery-scroll {
+  display: flex; gap: 16px;
+  overflow-x: auto; padding-right: 6%; padding-bottom: 10px;
+  scrollbar-width: none;
+}
+.gallery-scroll::-webkit-scrollbar { display: none; }
+.gallery-item {
+  flex-shrink: 0; width: 340px; height: 440px; position: relative; overflow: hidden;
+  cursor: none;
+}
+.gallery-item img {
+  width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7);
+  transition: transform .7s cubic-bezier(0.25,.46,.45,.94), filter .4s;
+}
+.gallery-item:hover img { transform: scale(1.08); filter: brightness(0.85); }
+.gallery-item-label {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 30px 24px 24px;
+  background: linear-gradient(to top, rgba(10,7,3,0.9), transparent);
+  font-family: 'Bodoni Moda', serif; font-size: 18px; font-style: italic;
+  color: var(--white); transform: translateY(8px); transition: transform .4s;
+}
+.gallery-item:hover .gallery-item-label { transform: translateY(0); }
+
+/* ─── HOURS & LOCATION ─── */
+.info-section {
+  padding: 120px 6%;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+  background: var(--roast);
+}
+.hours-block { }
+.hours-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 20px 0; border-bottom: 1px solid rgba(200,135,58,0.1);
+}
+.hours-day { font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--latte); }
+.hours-time { font-family: 'Bodoni Moda', serif; font-size: 16px; color: var(--amber); }
+.hours-closed { color: var(--fog); font-size: 13px; }
+
+.map-placeholder {
+  width: 100%; height: 300px;
+  background: rgba(26,16,8,0.6);
+  border: 1px solid rgba(200,135,58,0.15);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+  margin-top: 30px;
+}
+.map-icon { font-size: 32px; color: var(--amber); }
+.map-addr { font-size: 14px; color: var(--fog); text-align: center; line-height: 1.8; }
+
+/* ─── RESERVE ─── */
+.reserve-section {
+  padding: 140px 6%;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center;
+}
+.reserve-content .sec-title { margin-bottom: 28px; }
+.reserve-text { font-size: 15px; font-weight: 200; color: rgba(245,237,224,0.5); line-height: 1.9; margin-bottom: 48px; }
+.form-col { display: flex; flex-direction: column; gap: 0; }
+.form-field { display: flex; flex-direction: column; border-bottom: 1px solid rgba(200,135,58,0.15); }
+.form-lbl { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--amber); padding-top: 22px; }
+.form-inp, .form-sel, .form-ta {
+  border: none; background: transparent; outline: none;
+  font-family: 'Jost', sans-serif; font-size: 15px; font-weight: 200;
+  color: var(--white); padding: 12px 0 20px;
+}
+.form-inp::placeholder, .form-ta::placeholder { color: rgba(200,135,58,0.25); }
+.form-sel { cursor: none; }
+.form-sel option { background: var(--espresso); }
+.form-ta { resize: none; min-height: 100px; }
+.form-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.submit-btn2 {
+  margin-top: 36px; align-self: flex-start;
+  padding: 18px 52px; background: var(--amber);
+  color: var(--espresso); border: none; cursor: none;
+  font-family: 'Jost', sans-serif; font-size: 11px;
+  letter-spacing: 2.5px; text-transform: uppercase; font-weight: 500;
+  position: relative; overflow: hidden; transition: transform .3s;
+}
+.submit-btn2::before {
+  content: ''; position: absolute; inset: 0;
+  background: var(--espresso); color: var(--white);
+  transform: translateX(-101%);
+  transition: transform .4s cubic-bezier(0.77,0,0.175,1);
+}
+.submit-btn2:hover::before { transform: translateX(0); }
+.submit-btn2 span { position: relative; z-index: 1; }
+.submit-btn2:hover { transform: translateY(-2px); }
+.submit-btn2:hover span { color: var(--amber); }
+
+/* ─── FOOTER ─── */
+footer {
+  background: #0e0a04;
+  border-top: 1px solid rgba(200,135,58,0.1);
+  padding: 80px 6% 40px;
+}
+.footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 80px; }
+.footer-brand-name {
+  font-family: 'Bodoni Moda', serif; font-size: 36px; font-style: italic;
+  color: var(--amber); margin-bottom: 16px;
+}
+.footer-tagline { font-size: 12px; color: var(--fog); line-height: 1.9; max-width: 240px; font-weight: 200; }
+.footer-col-title { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--amber); margin-bottom: 24px; }
+.footer-col-links { display: flex; flex-direction: column; gap: 14px; }
+.footer-col-links a {
+  font-size: 13px; color: var(--fog); text-decoration: none; font-weight: 200;
+  transition: color .3s; display: flex; align-items: center; gap: 8px;
+}
+.footer-col-links a:hover { color: var(--amber); }
+.footer-col-links a::before { content: '—'; color: rgba(200,135,58,0.3); font-size: 10px; }
+.footer-bottom {
+  border-top: 1px solid rgba(200,135,58,0.08);
+  padding-top: 36px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 11px; color: rgba(138,117,102,0.6);
+  flex-wrap: wrap; gap: 16px;
+}
+.footer-socials { display: flex; gap: 16px; }
+.social-link {
+  width: 36px; height: 36px; border: 1px solid rgba(200,135,58,0.2);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--fog); text-decoration: none; font-size: 13px;
+  transition: background .3s, border-color .3s, color .3s;
+}
+.social-link:hover { background: var(--amber); border-color: var(--amber); color: var(--espresso); }
+
+/* ─── MOBILE ─── */
+@media (max-width: 960px) {
+  .story-section, .exp-grid, .info-section, .reserve-section { grid-template-columns: 1fr; gap: 60px; }
+  .menu-grid { grid-template-columns: 1fr 1fr; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .nav-links, .nav-reserve { display: none; }
+  .hero-circle { display: none; }
+  .exp-overlay-card { display: none; }
+}
+@media (max-width: 600px) {
+  .menu-grid { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr; }
 }
 </style>
 </head>
-
 <body>
 
-<nav>
-<div class="logo">Aura Brew</div>
-<div class="menu-toggle" onclick="toggleMenu()">☰</div>
-<ul id="menu">
-<li><a href="#">Home</a></li>
-<li><a href="#menuSec">Menu</a></li>
-<li><a href="#gallery">Gallery</a></li>
-<li><a href="#contact">Contact</a></li>
-</ul>
+<!-- CURSOR -->
+<div class="cur" id="curDot"><div class="cur-dot"></div></div>
+<div class="cur" id="curRing"><div class="cur-ring"></div></div>
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <div class="pre-logo">Noir & Bloom</div>
+  <div class="pre-bar-wrap"><div class="pre-bar"></div></div>
+  <div class="pre-text">Crafting your experience</div>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">Noir & Bloom</a>
+  <ul class="nav-links">
+    <li><a href="#story">Our Story</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#reserve">Reserve</a></li>
+  </ul>
+  <button class="nav-reserve">Reserve a Table</button>
 </nav>
 
+<!-- HERO -->
 <section class="hero">
-<div class="hero-overlay"></div>
-<div class="hero-content">
-<h1>Beyond Coffee</h1>
-<p>Luxury specialty coffee experience designed for creators & thinkers</p>
-<button class="btn" onclick="openModal()">Reserve Table</button>
-</div>
+  <div class="hero-bg"></div>
+  <div class="hero-gradient"></div>
+  <div class="hero-circle"></div>
+  <div class="hero-content">
+    <div class="hero-tag"><span class="hero-tag-line"></span>Established 2012 · Specialty Café</div>
+    <h1>Where Coffee<br>Becomes <em>Art</em></h1>
+    <p class="hero-sub">Single-origin beans. Unhurried mornings. A sanctuary of warmth crafted for those who believe every cup should be extraordinary.</p>
+    <div class="hero-actions">
+      <button class="btn-amber" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})"><span>Explore Our Menu</span></button>
+      <a class="btn-outline-ghost" href="#story">Our Story <span class="arr">→</span></a>
+    </div>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div>Scroll to discover</div>
+  <div class="hero-year">Est. 2012</div>
 </section>
 
-<div class="trust">
-<span>⭐ 4.9 Rating</span>
-<span>🏆 Award Winning</span>
-<span>☕ 15+ Signature Coffees</span>
-<span>📶 Free WiFi</span>
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track" id="mt">
+    <span class="marq-item"><span class="marq-diamond"></span>Single-Origin Espresso</span>
+    <span class="marq-item"><span class="marq-diamond"></span>Pour-Over Rituals</span>
+    <span class="marq-item"><span class="marq-diamond"></span>Cold Brew Reserve</span>
+    <span class="marq-item"><span class="marq-diamond"></span>Seasonal Pastries</span>
+    <span class="marq-item"><span class="marq-diamond"></span>Artisan Roasts</span>
+    <span class="marq-item"><span class="marq-diamond"></span>Specialty Teas</span>
+    <span class="marq-item"><span class="marq-diamond"></span>Farm-to-Cup</span>
+    <span class="marq-item"><span class="marq-diamond"></span>Private Tasting Events</span>
+    <span class="marq-item"><span class="marq-diamond"></span>Single-Origin Espresso</span>
+    <span class="marq-item"><span class="marq-diamond"></span>Pour-Over Rituals</span>
+    <span class="marq-item"><span class="marq-diamond"></span>Cold Brew Reserve</span>
+    <span class="marq-item"><span class="marq-diamond"></span>Seasonal Pastries</span>
+    <span class="marq-item"><span class="marq-diamond"></span>Artisan Roasts</span>
+    <span class="marq-item"><span class="marq-diamond"></span>Specialty Teas</span>
+    <span class="marq-item"><span class="marq-diamond"></span>Farm-to-Cup</span>
+    <span class="marq-item"><span class="marq-diamond"></span>Private Tasting Events</span>
+  </div>
 </div>
 
-<section id="menuSec">
-<h2 style="text-align:center;margin-bottom:40px">Signature Menu</h2>
-<div class="menu-grid">
-
-<div class="menu-card">
-<img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085">
-<div class="menu-info">
-<h3>Royal Espresso</h3>
-<p style="opacity:.7;font-size:14px">Single-origin bold shot with caramel finish</p>
-<div class="price">₹180</div>
-<button class="btn" style="margin-top:10px;width:100%" onclick="whatsapp()">Order</button>
-</div>
-</div>
-
-<div class="menu-card">
-<img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb">
-<div class="menu-info">
-<h3>Velvet Cappuccino</h3>
-<p style="opacity:.7;font-size:14px">Creamy foam layered artisan cappuccino</p>
-<div class="price">₹220</div>
-<button class="btn" style="margin-top:10px;width:100%" onclick="whatsapp()">Order</button>
-</div>
-</div>
-
-<div class="menu-card">
-<img src="https://images.unsplash.com/photo-1511920170033-f8396924c348">
-<div class="menu-info">
-<h3>Hazelnut Latte</h3>
-<p style="opacity:.7;font-size:14px">Nutty aromatic latte loved by creators</p>
-<div class="price">₹260</div>
-<button class="btn" style="margin-top:10px;width:100%" onclick="whatsapp()">Order</button>
-</div>
-</div>
-
-<div class="menu-card">
-<img src="https://images.unsplash.com/photo-1551024506-0bccd828d307">
-<div class="menu-info">
-<h3>Lava Chocolate Cake</h3>
-<p style="opacity:.7;font-size:14px">Warm molten core indulgence dessert</p>
-<div class="price">₹280</div>
-<button class="btn" style="margin-top:10px;width:100%" onclick="whatsapp()">Order</button>
-</div>
-</div>
-
-<div class="menu-card">
-<img src="https://images.unsplash.com/photo-1550547660-d9450f859349">
-<div class="menu-info">
-<h3>Gourmet Chicken Burger</h3>
-<p style="opacity:.7;font-size:14px">Juicy grilled burger with premium sauces</p>
-<div class="price">₹340</div>
-<button class="btn" style="margin-top:10px;width:100%" onclick="whatsapp()">Order</button>
-</div>
-</div>
-
-<div class="menu-card">
-<img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836">
-<div class="menu-info">
-<h3>Cold Brew Tonic</h3>
-<p style="opacity:.7;font-size:14px">Sparkling citrus cold brew refreshment</p>
-<div class="price">₹240</div>
-<button class="btn" style="margin-top:10px;width:100%" onclick="whatsapp()">Order</button>
-</div>
-</div>
-
-
-<div class="menu-card">
-<img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e">
-<div class="menu-info">
-<h3>Classic Tiramisu</h3>
-<p style="opacity:.7;font-size:14px">Italian layered coffee dessert indulgence</p>
-<div class="price">₹310</div>
-<button class="btn" style="margin-top:10px;width:100%" onclick="whatsapp()">Order</button>
-</div>
-</div>
-
-<div class="menu-card">
-<img src="https://images.unsplash.com/photo-1478144592103-25e218a04891">
-<div class="menu-info">
-<h3>Strawberry Frappe</h3>
-<p style="opacity:.7;font-size:14px">Refreshing blended strawberry cream drink</p>
-<div class="price">₹270</div>
-<button class="btn" style="margin-top:10px;width:100%" onclick="whatsapp()">Order</button>
-</div>
-</div>
-
-</div>
+<!-- STORY / ABOUT -->
+<section id="story" class="story-section">
+  <div class="story-img-col">
+    <div class="story-img-frame reveal-left">
+      <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=900" alt="Craft Coffee">
+    </div>
+    <div class="story-badge reveal d3">
+      <div class="story-badge-num">12</div>
+      <div class="story-badge-text">Years of Craft</div>
+    </div>
+  </div>
+  <div class="reveal-right">
+    <div class="sec-tag">Our Philosophy</div>
+    <h2 class="sec-title">A Café Born from<br><em>Obsession</em></h2>
+    <p class="story-text">
+      Noir & Bloom began as a pursuit — to find the perfect cup and share it. We source directly from family-owned farms across Ethiopia, Colombia, and Japan, roasting in-house each morning to ensure every sip arrives at its peak expression.
+      <br><br>
+      Our space is designed for slowness. For conversation. For the quiet luxury of a moment truly savoured.
+    </p>
+    <div class="story-meta">
+      <div>
+        <div class="story-stat-num">14</div>
+        <div class="story-stat-label">Origins Sourced</div>
+      </div>
+      <div>
+        <div class="story-stat-num">40K+</div>
+        <div class="story-stat-label">Cups Crafted</div>
+      </div>
+      <div>
+        <div class="story-stat-num">98%</div>
+        <div class="story-stat-label">Guest Return Rate</div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<section id="gallery">
-<h2 style="text-align:center;margin-bottom:40px">Ambience</h2>
-<div class="gallery">
-<img src="https://images.unsplash.com/photo-1559925393-8be0ec4767c8">
-<img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814">
-<img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31">
-<img src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0">
-</div>
+<!-- MENU -->
+<section id="menu" class="menu-section">
+  <div class="menu-header">
+    <div class="reveal">
+      <div class="sec-tag">Curated Offerings</div>
+      <h2 class="sec-title">The <em>Menu</em></h2>
+    </div>
+    <div class="menu-tabs reveal d2">
+      <button class="menu-tab active" onclick="switchTab(this, 'coffee')">Coffee</button>
+      <button class="menu-tab" onclick="switchTab(this, 'food')">Food</button>
+      <button class="menu-tab" onclick="switchTab(this, 'seasonal')">Seasonal</button>
+    </div>
+  </div>
+
+  <!-- COFFEE ITEMS -->
+  <div class="menu-grid" id="tab-coffee">
+    <div class="menu-card reveal" onclick="">
+      <div class="menu-card-num">01</div>
+      <img class="menu-img" src="https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?q=80&w=700" alt="Espresso">
+      <div class="menu-name">Black Ritual</div>
+      <p class="menu-desc">Double-shot espresso from Ethiopian Yirgacheffe. Bright citrus notes with a velvety crema.</p>
+      <div class="menu-footer"><div class="menu-price">₹280</div><div class="menu-btn">→</div></div>
+    </div>
+    <div class="menu-card reveal d1">
+      <div class="menu-card-num">02</div>
+      <img class="menu-img" src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?q=80&w=700" alt="Latte">
+      <div class="menu-name">Bloom Latte</div>
+      <p class="menu-desc">Silky steamed oat milk married to our house blend. Topped with artisan latte art.</p>
+      <div class="menu-footer"><div class="menu-price">₹380</div><div class="menu-btn">→</div></div>
+    </div>
+    <div class="menu-card reveal d2">
+      <div class="menu-card-num">03</div>
+      <img class="menu-img" src="https://images.unsplash.com/photo-1612887726773-e64e009a4e58?q=80&w=700" alt="Cold Brew">
+      <div class="menu-name">Midnight Cold Brew</div>
+      <p class="menu-desc">18-hour steeped Colombian single-origin. Bold, smooth, with dark chocolate undertones.</p>
+      <div class="menu-footer"><div class="menu-price">₹420</div><div class="menu-btn">→</div></div>
+    </div>
+    <div class="menu-card reveal">
+      <div class="menu-card-num">04</div>
+      <img class="menu-img" src="https://images.unsplash.com/photo-1497636577773-f1231844b336?q=80&w=700" alt="Pour Over">
+      <div class="menu-name">The Pour-Over</div>
+      <p class="menu-desc">A meditative pour. Single-origin Japan Geisha, served in handcrafted ceramic. A ceremony in a cup.</p>
+      <div class="menu-footer"><div class="menu-price">₹520</div><div class="menu-btn">→</div></div>
+    </div>
+    <div class="menu-card reveal d1">
+      <div class="menu-card-num">05</div>
+      <img class="menu-img" src="https://images.unsplash.com/photo-1529892485617-25f63cd7b1e9?q=80&w=700" alt="Cortado">
+      <div class="menu-name">The Cortado</div>
+      <p class="menu-desc">Equal parts espresso and warm milk. Uncompromising balance for the connoisseur.</p>
+      <div class="menu-footer"><div class="menu-price">₹320</div><div class="menu-btn">→</div></div>
+    </div>
+    <div class="menu-card reveal d2">
+      <div class="menu-card-num">06</div>
+      <img class="menu-img" src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=700" alt="Matcha">
+      <div class="menu-name">Ceremonial Matcha</div>
+      <p class="menu-desc">First-flush Uji matcha whisked to perfection, layered over steamed almond milk.</p>
+      <div class="menu-footer"><div class="menu-price">₹440</div><div class="menu-btn">→</div></div>
+    </div>
+  </div>
+
+  <!-- FOOD ITEMS -->
+  <div class="menu-grid" id="tab-food" style="display:none">
+    <div class="menu-card reveal">
+      <div class="menu-card-num">01</div>
+      <img class="menu-img" src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?q=80&w=700" alt="Croissant">
+      <div class="menu-name">Butter Croissant</div>
+      <p class="menu-desc">72-hour laminated dough, European-style butter, baked daily at dawn. Impossibly flaky.</p>
+      <div class="menu-footer"><div class="menu-price">₹180</div><div class="menu-btn">→</div></div>
+    </div>
+    <div class="menu-card reveal d1">
+      <div class="menu-card-num">02</div>
+      <img class="menu-img" src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?q=80&w=700" alt="Tart">
+      <div class="menu-name">Dark Chocolate Tart</div>
+      <p class="menu-desc">Valrhona dark chocolate ganache on a buttery sablé crust. Served at room temperature.</p>
+      <div class="menu-footer"><div class="menu-price">₹320</div><div class="menu-btn">→</div></div>
+    </div>
+    <div class="menu-card reveal d2">
+      <div class="menu-card-num">03</div>
+      <img class="menu-img" src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?q=80&w=700" alt="Avocado Toast">
+      <div class="menu-name">Bloom Toast</div>
+      <p class="menu-desc">Sourdough, smashed avocado, burrata, edible flowers, sea salt flakes, EVOO.</p>
+      <div class="menu-footer"><div class="menu-price">₹480</div><div class="menu-btn">→</div></div>
+    </div>
+  </div>
+
+  <!-- SEASONAL ITEMS -->
+  <div class="menu-grid" id="tab-seasonal" style="display:none">
+    <div class="menu-card reveal">
+      <div class="menu-card-num">01</div>
+      <img class="menu-img" src="https://images.unsplash.com/photo-1542319468-c14d8fe7c7de?q=80&w=700" alt="Seasonal">
+      <div class="menu-name">Saffron Rose Latte</div>
+      <p class="menu-desc">Kashmiri saffron infused with rose water, topped with lightly spiced milk foam. A winter reverie.</p>
+      <div class="menu-footer"><div class="menu-price">₹460</div><div class="menu-btn">→</div></div>
+    </div>
+    <div class="menu-card reveal d1">
+      <div class="menu-card-num">02</div>
+      <img class="menu-img" src="https://images.unsplash.com/photo-1474898856510-884a2c0be546?q=80&w=700" alt="Berry">
+      <div class="menu-name">Hibiscus Fizz</div>
+      <p class="menu-desc">Cold-brewed hibiscus, sparkling water, lime. A floral, tart, crimson summer indulgence.</p>
+      <div class="menu-footer"><div class="menu-price">₹380</div><div class="menu-btn">→</div></div>
+    </div>
+    <div class="menu-card reveal d2">
+      <div class="menu-card-num">03</div>
+      <img class="menu-img" src="https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?q=80&w=700" alt="Apple">
+      <div class="menu-name">Spiced Apple Cake</div>
+      <p class="menu-desc">Seasonal apples, cardamom, dark brown butter. Warm-spiced and comforting in every bite.</p>
+      <div class="menu-footer"><div class="menu-price">₹340</div><div class="menu-btn">→</div></div>
+    </div>
+  </div>
 </section>
 
-<section class="map">
-<iframe src="https://maps.google.com/maps?q=cafe&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
+<!-- EXPERIENCE -->
+<section id="experience" class="exp-section">
+  <div class="exp-bg-text">Noir</div>
+  <div class="exp-grid">
+    <div class="exp-visual reveal-left">
+      <img class="exp-large-img" src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=900" alt="Café Interior">
+      <div class="exp-overlay-card">
+        <div class="exp-overlay-title">The Quiet Corner</div>
+        <div class="exp-overlay-text">Reserved daily 8–11am for guests who simply wish to be still.</div>
+      </div>
+    </div>
+    <div class="exp-content reveal-right">
+      <div class="sec-tag">The Space</div>
+      <h2 class="sec-title">An <em>Experience</em><br>Beyond the Cup</h2>
+      <ul class="exp-list">
+        <li class="exp-list-item">
+          <div class="exp-icon">☕</div>
+          <div>
+            <div class="exp-item-title">In-House Roastery</div>
+            <div class="exp-item-text">Watch your beans transform just steps from your table. We roast every morning — freshness you can smell.</div>
+          </div>
+        </li>
+        <li class="exp-list-item">
+          <div class="exp-icon">♪</div>
+          <div>
+            <div class="exp-item-title">Curated Soundscapes</div>
+            <div class="exp-item-text">Original playlists curated weekly by resident artists. Music that moves at the pace of a slow morning.</div>
+          </div>
+        </li>
+        <li class="exp-list-item">
+          <div class="exp-icon">◎</div>
+          <div>
+            <div class="exp-item-title">Private Tasting Events</div>
+            <div class="exp-item-text">Monthly cupping sessions and origin story evenings. Book exclusively for groups of 6–12.</div>
+          </div>
+        </li>
+      </ul>
+      <button class="btn-amber" onclick="document.getElementById('reserve').scrollIntoView({behavior:'smooth'})"><span>Reserve Your Table</span></button>
+    </div>
+  </div>
 </section>
 
-<section id="contact" class="contact">
-<h2>Visit Aura Brew</h2>
-<p style="max-width:700px;margin:10px auto;opacity:.8">Aura Brew is a modern premium cafe crafted for creators, professionals, and coffee lovers who value ambience as much as taste. Our space blends specialty coffee, curated desserts, and design-driven interiors to create a social living room experience.</p>
+<!-- QUOTE -->
+<div class="quote-section">
+  <div class="quote-inner reveal">
+    <span class="quote-mark">"</span>
+    <p class="quote-text">Coffee is not a convenience. It is a conversation between the farmer, the roaster, the barista, and you. At Noir & Bloom, we make sure that conversation is worth having.</p>
+    <div class="quote-author">— Arjun Mehra, Founder</div>
+  </div>
+</div>
 
-<h3 style="margin-top:30px">Why Choose Aura Brew</h3>
-<p style="max-width:700px;margin:10px auto;opacity:.8">✔ Globally sourced specialty beans<br>✔ Instagram-worthy interiors<br>✔ Comfortable work & meeting environment<br>✔ Signature desserts & gourmet snacks<br>✔ Events, meetups & live music nights</p>
-
-<h3 style="margin-top:30px">What Makes Us Different</h3>
-<p style="max-width:700px;margin:10px auto;opacity:.8">Unlike typical cafes, Aura Brew focuses on experience design — from aroma psychology and lighting ambience to seating comfort and menu storytelling. Every visit is designed to feel premium yet welcoming.</p>
-
-<p style="margin-top:25px">Open Daily · 9AM — 11PM</p>
-<p>Phone: +91 90650 43000</p>
-<button class="btn" onclick="whatsapp()">WhatsApp Order</button>
+<!-- GALLERY -->
+<section class="gallery-section">
+  <div class="gallery-header reveal">
+    <div class="sec-tag">The Atmosphere</div>
+    <h2 class="sec-title"><em>Inside</em> Noir & Bloom</h2>
+  </div>
+  <div class="gallery-scroll">
+    <div class="gallery-item reveal">
+      <img src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?q=80&w=700" alt="Interior">
+      <div class="gallery-item-label">The Main Hall</div>
+    </div>
+    <div class="gallery-item reveal d1">
+      <img src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?q=80&w=700" alt="Counter">
+      <div class="gallery-item-label">The Bar</div>
+    </div>
+    <div class="gallery-item reveal d2">
+      <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=700" alt="Details">
+      <div class="gallery-item-label">The Details</div>
+    </div>
+    <div class="gallery-item reveal d3">
+      <img src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?q=80&w=700" alt="Morning">
+      <div class="gallery-item-label">Morning Light</div>
+    </div>
+    <div class="gallery-item reveal d4">
+      <img src="https://images.unsplash.com/photo-1519214605650-76a613ee3245?q=80&w=700" alt="Roastery">
+      <div class="gallery-item-label">The Roastery</div>
+    </div>
+  </div>
 </section>
 
-<footer>© Aura Brew 2026 — Crafted Experience</footer>
+<!-- HOURS & LOCATION -->
+<section class="info-section">
+  <div class="reveal">
+    <div class="sec-tag">Visit Us</div>
+    <h2 class="sec-title" style="margin-bottom:40px">Hours &<br><em>Location</em></h2>
+    <div>
+      <div class="hours-row"><span class="hours-day">Monday – Friday</span><span class="hours-time">7:00 – 21:00</span></div>
+      <div class="hours-row"><span class="hours-day">Saturday</span><span class="hours-time">8:00 – 22:00</span></div>
+      <div class="hours-row"><span class="hours-day">Sunday</span><span class="hours-time">8:00 – 20:00</span></div>
+      <div class="hours-row"><span class="hours-day">Public Holidays</span><span class="hours-closed">Closed</span></div>
+    </div>
+  </div>
+  <div class="reveal d2">
+    <div class="sec-tag">Find Us</div>
+    <h2 class="sec-title" style="margin-bottom:24px"><em>12</em> Bloom Lane<br>Indiranagar</h2>
+    <p style="font-size:13px;color:var(--fog);font-weight:200;line-height:1.8">Bengaluru, Karnataka — 560038<br>Near 100 Feet Road, behind Leela Palace</p>
+    <div class="map-placeholder" style="margin-top:30px">
+      <div class="map-icon">⊙</div>
+      <div class="map-addr">12 Bloom Lane, Indiranagar<br>Bengaluru, KA 560038</div>
+      <button class="btn-amber" style="margin-top:12px;padding:10px 24px;font-size:10px;letter-spacing:2px"><span>Get Directions →</span></button>
+    </div>
+  </div>
+</section>
 
-<div class="float" onclick="whatsapp()">Order Now</div>
+<!-- RESERVE -->
+<section id="reserve" class="reserve-section">
+  <div class="reserve-content reveal-left">
+    <div class="sec-tag">Reservations</div>
+    <h2 class="sec-title">Reserve<br>Your <em>Moment</em></h2>
+    <p class="reserve-text">Tables are limited and mornings at Noir & Bloom are unhurried by design. Reserve yours in advance and let us prepare something special for your arrival.</p>
+    <div class="story-meta">
+      <div>
+        <div class="story-stat-num">24</div>
+        <div class="story-stat-label">Seats Available</div>
+      </div>
+      <div>
+        <div class="story-stat-num">3hr</div>
+        <div class="story-stat-label">Table Duration</div>
+      </div>
+    </div>
+  </div>
+  <div class="reveal-right d1">
+    <div class="form-col">
+      <div class="form-row2">
+        <div class="form-field">
+          <div class="form-lbl">Your Name</div>
+          <input class="form-inp" placeholder="Arjun Mehra">
+        </div>
+        <div class="form-field">
+          <div class="form-lbl">Phone</div>
+          <input class="form-inp" placeholder="+91 98765 43210">
+        </div>
+      </div>
+      <div class="form-row2">
+        <div class="form-field">
+          <div class="form-lbl">Date</div>
+          <input class="form-inp" type="date">
+        </div>
+        <div class="form-field">
+          <div class="form-lbl">Time</div>
+          <select class="form-sel">
+            <option>7:00 AM</option><option>8:00 AM</option><option>9:00 AM</option>
+            <option>10:00 AM</option><option>11:00 AM</option><option>12:00 PM</option>
+            <option>2:00 PM</option><option>4:00 PM</option><option>6:00 PM</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row2">
+        <div class="form-field">
+          <div class="form-lbl">Guests</div>
+          <select class="form-sel">
+            <option>1 Guest</option><option>2 Guests</option><option>3 Guests</option>
+            <option>4 Guests</option><option>5+ Guests</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <div class="form-lbl">Preference</div>
+          <select class="form-sel">
+            <option>No Preference</option><option>Window Seat</option><option>Quiet Corner</option><option>Bar Seating</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-field">
+        <div class="form-lbl">Special Requests</div>
+        <textarea class="form-ta" placeholder="Dietary requirements, occasions, or anything you'd like us to know…"></textarea>
+      </div>
+      <button class="submit-btn2"><span>Confirm Reservation →</span></button>
+    </div>
+  </div>
+</section>
 
-<div class="modal" id="modal">
-<div class="modal-content">
-<h3>Reserve Table</h3>
-<input placeholder="Name">
-<input placeholder="Phone">
-<input type="date">
-<button class="btn" onclick="closeModal()">Submit</button>
-</div>
-</div>
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-name">Noir & Bloom</div>
+      <p class="footer-tagline">A sanctuary of craft coffee and unhurried moments in the heart of Indiranagar, Bengaluru.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Explore</div>
+      <div class="footer-col-links">
+        <a href="#">Our Story</a>
+        <a href="#">The Menu</a>
+        <a href="#">Experience</a>
+        <a href="#">Private Events</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Visit</div>
+      <div class="footer-col-links">
+        <a href="#">12 Bloom Lane</a>
+        <a href="#">Indiranagar, Bengaluru</a>
+        <a href="#">Mon–Fri: 7–21h</a>
+        <a href="#">Sat–Sun: 8–22h</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Connect</div>
+      <div class="footer-col-links">
+        <a href="#">hello@noirandbloom.in</a>
+        <a href="#">+91 80 4567 8901</a>
+        <a href="#">Press Enquiries</a>
+        <a href="#">Wholesale</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Noir & Bloom. All rights reserved.</span>
+    <div class="footer-socials">
+      <a class="social-link" href="#">in</a>
+      <a class="social-link" href="#">ig</a>
+      <a class="social-link" href="#">tw</a>
+    </div>
+    <span>Privacy Policy · Terms</span>
+  </div>
+</footer>
 
 <script>
-function toggleMenu(){document.getElementById('menu').classList.toggle('active')}
-function whatsapp(){window.open('https://wa.me/919065043000','_blank')}
-function openModal(){document.getElementById('modal').style.display='flex'}
-function closeModal(){document.getElementById('modal').style.display='none'}
+// ─── PRELOADER ───
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('preloader').classList.add('hidden');
+  }, 2400);
+});
+
+// ─── CURSOR ───
+const dot = document.getElementById('curDot');
+const ring = document.getElementById('curRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', (e) => {
+  mx = e.clientX; my = e.clientY;
+  dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+});
+
+function animCursor() {
+  rx += (mx - rx) * 0.1;
+  ry += (my - ry) * 0.1;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(animCursor);
+}
+animCursor();
+
+const hoverEls = document.querySelectorAll('a, button, .menu-card, .gallery-item, .prop-card');
+hoverEls.forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    dot.querySelector('.cur-dot').classList.add('expand');
+    ring.querySelector('.cur-ring').classList.add('expand');
+  });
+  el.addEventListener('mouseleave', () => {
+    dot.querySelector('.cur-dot').classList.remove('expand');
+    ring.querySelector('.cur-ring').classList.remove('expand');
+  });
+});
+
+// ─── NAV SCROLL ───
+window.addEventListener('scroll', () => {
+  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ─── SCROLL REVEAL ───
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => revealObs.observe(el));
+
+// ─── MENU TABS ───
+function switchTab(btn, tab) {
+  document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  ['coffee', 'food', 'seasonal'].forEach(t => {
+    const el = document.getElementById('tab-' + t);
+    if (el) el.style.display = (t === tab) ? 'grid' : 'none';
+  });
+  // Re-trigger reveals for newly shown cards
+  document.querySelectorAll('#tab-' + tab + ' .reveal').forEach(el => {
+    el.classList.remove('vis');
+    setTimeout(() => el.classList.add('vis'), 50);
+  });
+}
+
+// ─── HERO PARALLAX ───
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  const bg = document.querySelector('.hero-bg');
+  if (bg) bg.style.transform = `scale(1) translateY(${y * 0.25}px)`;
+});
 </script>
 
 </body>
