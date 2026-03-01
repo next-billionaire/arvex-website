@@ -53,7 +53,7 @@ export default function Portfolio() {
       category: "Healthcare",
       desc: "Professional website with appointment booking and service showcase",
       img: "https://images.unsplash.com/photo-1629909613654-28e377c37b09",
-      link: "#",
+      link:  "/dental.html",
       results: {
         metric: "23 leads",
         label: "First week"
@@ -67,7 +67,7 @@ export default function Portfolio() {
       category: "Fitness",
       desc: "Membership-focused landing page with class schedules and pricing",
       img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48",
-      link: "#",
+      link:   "/fitness.html",
       results: {
         metric: "+180%",
         label: "Sign-ups"
@@ -81,7 +81,7 @@ export default function Portfolio() {
       category: "Professional Services",
       desc: "Trustworthy design with case studies and consultation booking",
       img: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f",
-      link: "#",
+      link:   "/law.html",
       results: {
         metric: "+95%",
         label: "Consultations"

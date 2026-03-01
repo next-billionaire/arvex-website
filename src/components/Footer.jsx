@@ -1,7 +1,12 @@
-export default function Footer(){
-  return(
-    <footer className="py-8 text-center border-t">
-      © 2026 Arvex Technologies
+export default function Footer() {
+  return (
+    <footer className="py-8 text-center border-t text-sm text-gray-600">
+      <div className="space-y-2">
+        <p>© 2026 Arvex Technologies. All rights reserved.</p>
+        <p>
+          Founded by <span className="font-semibold">Anvesh Kumar</span>
+        </p>
+      </div>
     </footer>
-  )
+  );
 }
