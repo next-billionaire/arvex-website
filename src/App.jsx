@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Services from "./components/Services";
 import Portfolio from "./components/Portfolio";
-import WhyChoose from "./components/WhyChoose";
+import WhyChoose from "./components/WhyChoose"; // ✅ FIXED (added import)
 import Process from "./components/Process";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
@@ -17,7 +17,7 @@ function Home() {
       <Hero />
       <Services />
       <Portfolio />
-      <WhyChoose />
+      <WhyChoose /> {/* ✅ Now properly defined */}
       <Process />
       <Contact />
     </>
