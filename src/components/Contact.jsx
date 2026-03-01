@@ -237,7 +237,7 @@ export default function Contact() {
             {/* Stats Grid */}
             <div className="grid grid-cols-2 gap-4 my-6 relative">
               <div className="bg-white/10 backdrop-blur-sm p-4 rounded-xl border border-white/20">
-                <p className="text-2xl font-bold">240%</p>
+                <p className="text-2xl font-bold">40%</p>
                 <p className="text-sm opacity-90">Avg. lead increase</p>
               </div>
               <div className="bg-white/10 backdrop-blur-sm p-4 rounded-xl border border-white/20">
@@ -332,7 +332,7 @@ export default function Contact() {
               <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
-              <span className="font-medium">100+ Happy Clients</span>
+              <span className="font-medium">10+ Happy Clients</span>
             </div>
             <div className="w-px h-6 bg-gray-300"></div>
             <div className="flex items-center gap-2 text-sm text-gray-600">

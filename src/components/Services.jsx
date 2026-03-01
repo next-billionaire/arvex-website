@@ -35,7 +35,7 @@ export default function Services() {
         "Lead generation forms"
       ],
       results: { stat: "3-5x", label: "More enquiries" },
-      caseStudy: "Restaurant increased bookings by 340%"
+      caseStudy: "Restaurant increased bookings by 40%"
     },
     {
       icon: "🛒",
