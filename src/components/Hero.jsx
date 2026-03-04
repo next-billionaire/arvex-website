@@ -168,7 +168,7 @@ export default function Hero() {
               {/* Eyebrow */}
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 text-xs font-semibold text-indigo-700 mb-6 tracking-wide uppercase">
                 <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
-                Trusted by 200+ growing businesses
+                Trusted by 20+ growing businesses
               </div>
 
               {/* Headline */}
@@ -237,7 +237,7 @@ export default function Hero() {
 
             {/* Trust stats */}
             <div className="flex flex-wrap gap-3">
-              <TrustBadge icon="🏆" label="Clients Served" value={<Counter end={200} suffix="+" />} delay={0.5} />
+              <TrustBadge icon="🏆" label="Clients Served" value={<Counter end={20} suffix="+" />} delay={0.5} />
               <TrustBadge icon="📈" label="Avg. Growth" value={<Counter end={3} suffix="×" />} delay={0.6} />
               <TrustBadge icon="⭐" label="Satisfaction" value={<Counter end={98} suffix="%" />} delay={0.7} />
               <TrustBadge icon="⚡" label="Delivery" value="7 Days" delay={0.8} />
@@ -259,7 +259,7 @@ export default function Hero() {
                 <div className="absolute inset-0 bg-gradient-to-r from-indigo-900/30 to-transparent" />
                 <div className="absolute bottom-4 left-4 px-4 py-2 rounded-xl bg-white/90 backdrop-blur shadow-lg text-sm font-semibold text-gray-800 flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                  Helping businesses grow since 2020
+                  Helping businesses grow since 2026
                 </div>
               </div>
             </motion.div>
@@ -578,7 +578,7 @@ export default function Hero() {
                 ))}
               </div>
               <div>
-                <p className="text-xs font-bold text-gray-800">Join 200+ businesses</p>
+                <p className="text-xs font-bold text-gray-800">Join 20+ businesses</p>
                 <div className="flex gap-0.5 mt-0.5">
                   {[...Array(5)].map((_, i) => (
                     <svg key={i} className="w-2.5 h-2.5 text-amber-400 fill-current" viewBox="0 0 20 20">
