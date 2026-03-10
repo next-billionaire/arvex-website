@@ -4,7 +4,7 @@ export default function Footer() {
       <div className="space-y-2">
         <p>© 2026 Arvex Technologies. All rights reserved.</p>
         <p>
-          Founded by <span className="font-semibold">Anvesh Kumar</span>
+          Founded by <span className="font-semibold">KOTESH</span>
         </p>
       </div>
     </footer>
