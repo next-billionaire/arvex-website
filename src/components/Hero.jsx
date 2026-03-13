@@ -301,7 +301,7 @@ export default function Hero() {
                     Get Your Free<br />Business Audit
                   </h2>
                   <p className="text-white/70 text-sm mt-1">
-                    See exactly how we can 3× your enquiries in 90 days.
+                    See exactly how we can 3× your enquiries in 30 days.
                   </p>
                 </div>
               </div>
