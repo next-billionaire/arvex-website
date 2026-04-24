@@ -1,0 +1,17 @@
+export const locations = [
+  { id: "hyderabad", city: "Hyderabad", region: "Telangana", country: "India", priorityServices: ["website-development-for-small-business", "ai-chatbot-for-business", "website-redesign-services"] },
+  { id: "visakhapatnam", city: "Visakhapatnam", region: "Andhra Pradesh", country: "India", priorityServices: ["website-development-for-small-business", "ecommerce-website-development", "landing-page-design-services"] },
+  { id: "vijayawada", city: "Vijayawada", region: "Andhra Pradesh", country: "India", priorityServices: ["affordable-website-design-services", "website-development-for-startups", "website-redesign-services"] },
+  { id: "warangal", city: "Warangal", region: "Telangana", country: "India", priorityServices: ["affordable-website-design-services", "website-development-for-small-business", "landing-page-design-services"] },
+  { id: "tirupati", city: "Tirupati", region: "Andhra Pradesh", country: "India", priorityServices: ["website-development-for-small-business", "website-redesign-services", "ai-chatbot-for-business"] },
+  { id: "bengaluru", city: "Bengaluru", region: "Karnataka", country: "India", priorityServices: ["website-development-for-startups", "ai-chatbot-for-business", "ecommerce-website-development"] },
+  { id: "pune", city: "Pune", region: "Maharashtra", country: "India", priorityServices: ["website-development-for-startups", "landing-page-design-services", "website-redesign-services"] },
+  { id: "mumbai", city: "Mumbai", region: "Maharashtra", country: "India", priorityServices: ["ecommerce-website-development", "landing-page-design-services", "ai-chatbot-for-business"] },
+  { id: "delhi-ncr", city: "Delhi/NCR", region: "Delhi", country: "India", priorityServices: ["website-redesign-services", "ai-chatbot-for-business", "website-development-for-small-business"] },
+  { id: "ahmedabad", city: "Ahmedabad", region: "Gujarat", country: "India", priorityServices: ["affordable-website-design-services", "ecommerce-website-development", "landing-page-design-services"] },
+  { id: "london", city: "London", region: "England", country: "UK", priorityServices: ["website-development-for-startups", "website-redesign-services", "ai-chatbot-for-business"] },
+  { id: "dubai", city: "Dubai", region: "Dubai", country: "UAE", priorityServices: ["ecommerce-website-development", "landing-page-design-services", "website-redesign-services"] },
+  { id: "new-york", city: "New York", region: "New York", country: "USA", priorityServices: ["website-development-for-startups", "ai-chatbot-for-business", "landing-page-design-services"] },
+  { id: "san-francisco", city: "San Francisco", region: "California", country: "USA", priorityServices: ["website-development-for-startups", "ai-chatbot-for-business", "website-redesign-services"] },
+  { id: "singapore", city: "Singapore", region: "Singapore", country: "Singapore", priorityServices: ["ecommerce-website-development", "website-development-for-startups", "landing-page-design-services"] },
+];

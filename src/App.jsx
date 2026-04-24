@@ -9,7 +9,7 @@ import Process from "./components/Process";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import WhatsAppFloat from "./components/WhatsAppFloat";
-import WebsiteDevelopmentVijayawada from "./components/WebsiteDevelopmentVijayawada";
+import ServiceLandingPage from "./components/ServiceLandingPage";
 
 function Home() {
   return (
@@ -31,10 +31,8 @@ export default function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route
-          path="/website-development-vijayawada"
-          element={<WebsiteDevelopmentVijayawada />}
-        />
+        <Route path="/services/:serviceId" element={<ServiceLandingPage />} />
+        <Route path="/services/:serviceId/:cityId" element={<ServiceLandingPage />} />
       </Routes>
 
       <Footer />
