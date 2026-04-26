@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import ResponsiveImage from "./ResponsiveImage";
+import { getOptimizedImageSrc } from "../data/imageMap";
 
 export default function Portfolio() {
   const [activeFilter, setActiveFilter] = useState("all");
@@ -11,7 +12,7 @@ export default function Portfolio() {
       title: "Modern Cafe Website",
       category: "Restaurant",
       desc: "Menu showcase, online reservations, and Instagram feed integration",
-      img: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb",
+      img: "photo-1501339847302-ac426a4a7cbb",
       link: "/cafe.html",
       results: {
         metric: "Optimized",
@@ -25,7 +26,7 @@ export default function Portfolio() {
       title: "Real Estate Landing Page",
       category: "Real Estate",
       desc: "High-converting lead capture page for luxury property listings",
-      img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa",
+      img: "photo-1560518883-ce09059eeffa",
       link: "/realestate.html",
       results: {
         metric: "Lead Focused",
@@ -39,7 +40,7 @@ export default function Portfolio() {
       title: "Fashion E-commerce Store",
       category: "E-commerce",
       desc: "Complete online store with payments, inventory, and mobile-first design",
-      img: "https://images.unsplash.com/photo-1556742031-c6961e8560b0",
+      img: "photo-1556742031-c6961e8560b0",
       link: "/ecommerce.html",
       results: {
         metric: "Sales Ready",
@@ -53,7 +54,7 @@ export default function Portfolio() {
       title: "Dental Clinic Website",
       category: "Healthcare",
       desc: "Professional website with appointment booking and service showcase",
-      img: "https://images.unsplash.com/photo-1629909613654-28e377c37b09",
+      img: "photo-1629909613654-28e377c37b09",
       link: "/dental.html",
       results: {
         metric: "Conversion",
@@ -67,7 +68,7 @@ export default function Portfolio() {
       title: "Fitness Studio Landing",
       category: "Fitness",
       desc: "Membership-focused landing page with class schedules and pricing",
-      img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48",
+      img: "photo-1534438327276-14e5300c3a48",
       link: "/fitness.html",
       results: {
         metric: "Membership",
@@ -81,7 +82,7 @@ export default function Portfolio() {
       title: "Law Firm Website",
       category: "Professional Services",
       desc: "Trustworthy design with case studies and consultation booking",
-      img: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f",
+      img: "photo-1589829545856-d10d557cf95f",
       link: "/law.html",
       results: {
         metric: "Trust",
@@ -165,7 +166,7 @@ export default function Portfolio() {
             >
               <div className="relative h-64 overflow-hidden">
                 <ResponsiveImage
-                  src={p.img}
+                  src={getOptimizedImageSrc(p.img)}
                   alt={p.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
