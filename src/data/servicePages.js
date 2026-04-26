@@ -55,4 +55,12 @@ export const servicePages = [
     metaDescription:
       "Website redesign services to improve speed, UX clarity, SEO performance, and business conversions.",
   },
+  {
+    slug: "web-development",
+    keyword: "web development",
+    h1: "Web Development Services",
+    title: "Web Development Services | Arvex Technologies",
+    metaDescription:
+      "Professional web development services including custom websites, e-commerce, and web applications. Fast, responsive, and SEO-optimized.",
+  },
 ];

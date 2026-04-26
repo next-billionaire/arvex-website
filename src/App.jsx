@@ -10,10 +10,16 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import WhatsAppFloat from "./components/WhatsAppFloat";
 import ServiceLandingPage from "./components/ServiceLandingPage";
+import SeoHead from "./components/SeoHead";
 
 function Home() {
   return (
     <>
+      <SeoHead
+        title="Arvex Technologies - Web Development & AI Solutions"
+        description="Professional web development, AI chatbots, and digital solutions for businesses. Get custom websites, e-commerce stores, and growth-focused web applications."
+        path="/"
+      />
       <Hero />
       <Services />
       <Portfolio />

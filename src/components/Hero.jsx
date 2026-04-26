@@ -2,6 +2,7 @@
 import { motion, useMotionValue, useTransform, AnimatePresence } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import { useState, useEffect, useRef } from "react";
+import ResponsiveImage from "./ResponsiveImage";
 
 // ─── Floating Orb ───────────────────────────────────────────────────────────
 const Orb = ({ className }) => (
@@ -251,10 +252,14 @@ export default function Hero() {
               className="mt-12 hidden lg:block relative"
             >
               <div className="relative rounded-3xl overflow-hidden h-64 shadow-2xl shadow-indigo-200/50">
-                <img
-                  src="https://images.unsplash.com/photo-1556761175-4b46a572b786?q=80&w=2070&auto=format&fit=crop"
+                <ResponsiveImage
+                  src="https://images.unsplash.com/photo-1556761175-4b46a572b786?q=80&auto=format&fit=crop"
                   alt="Business consultation"
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  loading="eager"
+                  width={1200}
+                  height={600}
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-indigo-900/30 to-transparent" />
                 <div className="absolute bottom-4 left-4 px-4 py-2 rounded-xl bg-white/90 backdrop-blur shadow-lg text-sm font-semibold text-gray-800 flex items-center gap-2">

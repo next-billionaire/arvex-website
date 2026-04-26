@@ -1,7 +1,7 @@
 export const locations = [
   { id: "hyderabad", city: "Hyderabad", region: "Telangana", country: "India", priorityServices: ["website-development-for-small-business", "ai-chatbot-for-business", "website-redesign-services"] },
   { id: "visakhapatnam", city: "Visakhapatnam", region: "Andhra Pradesh", country: "India", priorityServices: ["website-development-for-small-business", "ecommerce-website-development", "landing-page-design-services"] },
-  { id: "vijayawada", city: "Vijayawada", region: "Andhra Pradesh", country: "India", priorityServices: ["affordable-website-design-services", "website-development-for-startups", "website-redesign-services"] },
+  { id: "vijayawada", city: "Vijayawada", region: "Andhra Pradesh", country: "India", priorityServices: ["web-development", "affordable-website-design-services", "website-development-for-startups"] },
   { id: "warangal", city: "Warangal", region: "Telangana", country: "India", priorityServices: ["affordable-website-design-services", "website-development-for-small-business", "landing-page-design-services"] },
   { id: "tirupati", city: "Tirupati", region: "Andhra Pradesh", country: "India", priorityServices: ["website-development-for-small-business", "website-redesign-services", "ai-chatbot-for-business"] },
   { id: "bengaluru", city: "Bengaluru", region: "Karnataka", country: "India", priorityServices: ["website-development-for-startups", "ai-chatbot-for-business", "ecommerce-website-development"] },
