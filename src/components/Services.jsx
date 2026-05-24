@@ -1,178 +1,234 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
 
 export default function Services() {
-  const [hoveredCard, setHoveredCard] = useState(null);
-
-  const solutions = [
+  const services = [
     {
+      number: "01",
+      title: "WEBSITE DEVELOPMENT",
+      desc: "Modern, responsive, and high-performance websites designed to build trust and drive conversions.",
+      icon: "💻",
+    },
+    {
+      number: "02",
+      title: "AI AUTOMATION",
+      desc: "AI-powered automation systems that streamline workflows, support customers, and save valuable time.",
       icon: "🤖",
-      badge: "Most Popular",
-      badgeColor: "from-purple-500 to-pink-500",
-      title: "AI Customer Support Assistant",
-      desc: "Never miss a customer again. Automate conversations and capture leads 24/7.",
-      features: [
-        "24/7 instant replies",
-        "Lead capture & qualification",
-        "Multi-language support",
-        "WhatsApp & web integration"
-      ],
-      results: { stat: "85%", label: "Response rate increase" },
-      caseStudy: "Dental clinic got 23 qualified leads in first week"
     },
     {
-      icon: "🌐",
-      badge: "Best for Startups",
-      badgeColor: "from-blue-500 to-indigo-500",
-      title: "Business Website",
-      desc: "Professional websites that build trust and turn visitors into customers.",
-      features: [
-        "Custom modern design",
-        "Mobile-optimized",
-        "SEO & speed optimized",
-        "Lead generation forms"
-      ],
-      results: { stat: "3-5x", label: "More enquiries" },
-      caseStudy: "Restaurant increased bookings by 40%"
+      number: "03",
+      title: "LEAD GENERATION",
+      desc: "Strategic lead generation systems designed to attract, capture, and convert high-quality leads.",
+      icon: "🔍",
     },
     {
-      icon: "🛒",
-      badge: "High ROI",
-      badgeColor: "from-green-500 to-emerald-500",
-      title: "E-commerce Store",
-      desc: "Sell online with secure payments, inventory management, and seamless checkout.",
-      features: [
-        "Payment gateway setup",
-        "Product catalog",
-        "Order management",
-        "Mobile shopping experience"
-      ],
-      results: { stat: "₹8.5L", label: "Avg. monthly sales" },
-      caseStudy: "Fashion brand hit ₹2L in first month"
+      number: "04",
+      title: "AI CUSTOMER SUPPORT ASSISTANT",
+      desc: "Intelligent AI assistants that handle calls, answer queries, and provide 24/7 customer support.",
+      icon: "🎧",
+      sub: "(AI ASSISTANT FOR CALLING)",
     },
-    {
-      icon: "🚀",
-      badge: "Quick Launch",
-      badgeColor: "from-orange-500 to-red-500",
-      title: "Landing Pages",
-      desc: "High-converting pages designed to turn ad traffic into customers.",
-      features: [
-        "Conversion-optimized design",
-        "A/B testing ready",
-        "Ad campaign integration",
-        "Fast loading speed"
-      ],
-      results: { stat: "18%", label: "Avg. conversion rate" },
-      caseStudy: "Real estate got 47 leads from ₹10k ad spend"
-    }
   ];
-
-  const scrollToContact = () => {
-    const section = document.getElementById("contact");
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-    }
-  };
 
   return (
     <section
-      id="solutions"
-      className="py-24 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden"
+      id="services"
+      className="relative overflow-hidden bg-[#f5f7ff] py-28"
     >
-      <div className="absolute inset-0 opacity-[0.02] bg-[linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] bg-[size:40px_40px]" />
+      {/* BACKGROUND */}
+      <div className="absolute inset-0 overflow-hidden">
 
-      <div className="max-w-7xl mx-auto px-6 relative">
-        <div className="grid lg:grid-cols-2 xl:grid-cols-4 gap-6 mb-12">
-          {solutions.map((s, i) => (
+        {/* TOP RIGHT LINES */}
+        <div className="absolute top-0 right-0 opacity-40">
+          <svg
+            width="500"
+            height="300"
+            viewBox="0 0 500 300"
+            fill="none"
+          >
+            <path
+              d="M500 0C420 80 420 220 500 300"
+              stroke="#2563eb"
+              strokeOpacity="0.15"
+              strokeWidth="1.5"
+            />
+            <path
+              d="M460 0C380 80 380 220 460 300"
+              stroke="#2563eb"
+              strokeOpacity="0.15"
+              strokeWidth="1.5"
+            />
+            <path
+              d="M420 0C340 80 340 220 420 300"
+              stroke="#2563eb"
+              strokeOpacity="0.15"
+              strokeWidth="1.5"
+            />
+          </svg>
+        </div>
+
+        {/* BOTTOM LEFT BLUR */}
+        <div className="absolute -bottom-32 -left-32 w-[500px] h-[500px] bg-blue-200/20 blur-3xl rounded-full" />
+
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-6">
+
+        {/* HEADER */}
+        <div className="max-w-3xl mb-20">
+
+          <div className="flex items-center gap-4 mb-5">
+
+            <span className="text-blue-600 text-sm font-bold tracking-[0.2em] uppercase">
+              What We Do
+            </span>
+
+            <div className="w-16 h-[2px] bg-blue-600 rounded-full" />
+
+          </div>
+
+          <h2 className="text-5xl md:text-7xl font-bold tracking-[-0.05em] leading-[0.95] text-[#0b1020]">
+
+            Our{" "}
+            <span className="text-blue-600">
+              Services
+            </span>
+
+          </h2>
+
+          <p className="mt-8 text-lg text-gray-600 leading-relaxed max-w-2xl">
+
+            We offer end-to-end digital solutions that help businesses
+            build, automate, and grow in the digital era.
+
+          </p>
+
+        </div>
+
+        {/* SERVICES GRID */}
+        <div className="grid lg:grid-cols-2 gap-7">
+
+          {services.map((service, index) => (
             <motion.div
-              key={i}
+              key={index}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              onMouseEnter={() => setHoveredCard(i)}
-              onMouseLeave={() => setHoveredCard(null)}
-              className="group relative bg-white rounded-2xl shadow-md hover:shadow-2xl hover:ring-2 hover:ring-indigo-500 transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col"
+              transition={{ duration: 0.45, delay: index * 0.08 }}
+              className="group relative overflow-hidden rounded-[34px] border border-blue-100 bg-white p-8 md:p-10 shadow-[0_10px_40px_rgba(37,99,235,0.05)] hover:shadow-[0_20px_60px_rgba(37,99,235,0.12)] transition-all duration-500"
             >
-              {/* Badge */}
-              <div className="absolute top-4 right-4 z-10">
-                <div
-                  className={`px-3 py-1 rounded-full bg-gradient-to-r ${s.badgeColor} text-white text-xs font-bold shadow-lg`}
-                >
-                  {s.badge}
-                </div>
+
+              {/* NUMBER */}
+              <div className="flex items-center gap-4 mb-8">
+
+                <span className="text-4xl font-bold text-blue-600 tracking-[-0.04em]">
+                  {service.number}
+                </span>
+
+                <div className="w-14 h-[2px] bg-blue-600 rounded-full" />
+
               </div>
 
-              <div className="p-6 flex flex-col flex-1">
-                <div className="text-5xl mb-4 transform group-hover:scale-110 transition-transform">
-                  {s.icon}
+              {/* CONTENT */}
+              <div className="grid grid-cols-[110px_1fr] gap-8 items-start">
+
+                {/* ICON BOX */}
+                <div className="relative">
+
+                  <div className="w-[110px] h-[110px] rounded-[28px] bg-gradient-to-br from-blue-500 to-blue-700 shadow-[0_15px_40px_rgba(37,99,235,0.35)] flex items-center justify-center text-white text-5xl group-hover:scale-105 transition-transform duration-500">
+
+                    {service.icon}
+
+                  </div>
+
                 </div>
 
-                <h3 className="text-xl font-bold mb-2 text-gray-900 group-hover:text-indigo-600 transition">
-                  {s.title}
-                </h3>
+                {/* TEXT */}
+                <div>
 
-                <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                  {s.desc}
-                </p>
+                  <h3 className="text-2xl md:text-3xl font-bold leading-tight tracking-[-0.03em] text-[#0b1020]">
 
-                {/* Results */}
-                <div className="mb-4 p-3 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border border-green-100">
-                  <p className="text-2xl font-bold text-gray-900">
-                    {s.results.stat}
+                    {service.title}
+
+                  </h3>
+
+                  {service.sub && (
+                    <p className="mt-2 text-blue-600 font-semibold text-sm">
+                      {service.sub}
+                    </p>
+                  )}
+
+                  <div className="w-12 h-[3px] bg-blue-600 rounded-full mt-5 mb-5" />
+
+                  <p className="text-gray-600 text-[17px] leading-relaxed">
+
+                    {service.desc}
+
                   </p>
-                  <p className="text-xs text-gray-600">
-                    {s.results.label}
-                  </p>
+
                 </div>
 
-                {/* Features */}
-                <ul className="space-y-2 text-sm text-gray-700 flex-1 mb-4">
-                  {s.features.map((f, idx) => (
-                    <li key={idx} className="flex items-start gap-2">
-                      <span className="text-green-500">✔</span>
-                      <span>{f}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Case Study */}
-                <div className="mb-4 p-3 bg-indigo-50 rounded-xl border border-indigo-100">
-                  <p className="text-xs text-indigo-600 font-semibold mb-1">
-                    Success Story
-                  </p>
-                  <p className="text-xs text-gray-700 italic">
-                    "{s.caseStudy}"
-                  </p>
-                </div>
-
-                {/* Get Started Button */}
-                <button
-                  type="button"
-                  onClick={scrollToContact}
-                  className={`w-full py-3 rounded-xl font-semibold bg-gradient-to-r ${s.badgeColor} text-white hover:scale-[1.02] hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 group`}
-                >
-                  <span>Get Started</span>
-                  <svg
-                    className="w-5 h-5 group-hover:translate-x-1 transition"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M13 7l5 5m0 0l-5 5m5-5H6"
-                    />
-                  </svg>
-                </button>
               </div>
+
             </motion.div>
           ))}
+
         </div>
+
+        {/* BOTTOM CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mt-16 rounded-[36px] border border-blue-200 bg-white px-8 md:px-12 py-8 shadow-[0_10px_40px_rgba(37,99,235,0.06)]"
+        >
+
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
+
+            {/* LEFT */}
+            <div className="flex items-center gap-6">
+
+              <div className="w-20 h-20 rounded-[24px] bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-white text-4xl shadow-[0_15px_40px_rgba(37,99,235,0.35)]">
+
+                🚀
+
+              </div>
+
+              <h3 className="text-2xl md:text-4xl font-bold leading-tight tracking-[-0.04em] text-[#0b1020] max-w-2xl">
+
+                We build smart digital solutions
+                <br />
+                that help your business{" "}
+                <span className="text-blue-600">
+                  grow.
+                </span>
+
+              </h3>
+
+            </div>
+
+            {/* BUTTON */}
+            <a
+              href="#contact"
+              className="group inline-flex items-center gap-4 rounded-2xl bg-blue-600 hover:bg-blue-700 px-8 py-5 text-white text-lg font-semibold transition-all duration-300 shadow-[0_15px_40px_rgba(37,99,235,0.35)]"
+            >
+
+              Let’s Work Together
+
+              <span className="w-10 h-10 rounded-xl bg-white text-blue-600 flex items-center justify-center text-xl group-hover:translate-x-1 transition-transform">
+
+                ↗
+
+              </span>
+
+            </a>
+
+          </div>
+
+        </motion.div>
+
       </div>
     </section>
   );
