@@ -29,11 +29,24 @@ const LoadingFallback = () => (
 function Home() {
   return (
     <>
-      <SeoHead
-        title="Arvex Technologies - Web Development & AI Solutions"
-        description="Professional web development, AI chatbots, and digital solutions for businesses. Get custom websites, e-commerce stores, and growth-focused web applications."
-        path="/"
-      />
+     <SeoHead
+  title="Arvex Technologies | Software & AI Development Company in Vijayawada"
+  description="Arvex Technologies is a Vijayawada-based IT company delivering website development, mobile apps, ERP & CRM systems, AI automation, and AI voice agents for businesses across Andhra Pradesh."
+  path="/"
+  keywords={[
+    "software company in Vijayawada",
+    "IT company in Vijayawada",
+    "website development company Vijayawada",
+    "web design company Andhra Pradesh",
+    "ERP software development company",
+    "CRM software development company",
+    "custom software development company",
+    "AI automation company India",
+    "AI voice agent company",
+    "AI chatbot development company",
+    "mobile app development company Vijayawada",
+  ]}
+/>
       <Suspense fallback={<LoadingFallback />}>
         <Hero />
         <Services />
